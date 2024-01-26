@@ -8,7 +8,31 @@
     <title>FE55: Trello</title>
   </head>
   <body>
-    <div id="app"></div>
+    <main>
+      <div class="column column-todo">
+        <header class="column__header">
+          <h2 class="column__title">ToDo</h2>
+          <div class="column__counter-todo">0</div>
+        </header>
+        <div class="column__task-list"></div>
+        <button class="column__button-add">+ Add a card</button>
+      </div>
+      <div class="column column-progress">
+        <header class="column__header">
+          <h2 class="column__title">In Progress</h2>
+          <div class="column__counter-progress">0</div>
+        </header>
+        <div class="column__task-list"></div>
+      </div>
+      <div class="column column-done">
+        <header class="column__header">
+          <h2 class="column__title-done">Done</h2>
+          <div class="column__counter-progress">0</div>
+        </header>
+        <div class="column__task-list"></div>
+        <button class="column__button-delete-all">- Remove all cards</button>
+      </div>
+    </main>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
