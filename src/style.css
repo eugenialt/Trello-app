@@ -58,7 +58,7 @@ main {
   border: 0;
 }
 
-.modal {
+#modal {
   position: fixed;
   top: 0;
   display: flex;
@@ -69,8 +69,7 @@ main {
   height: 100vh;
 }
 
-.modal__task-add {
-  display: flex;
+#modal__task-add {
   flex-direction: column;
   padding: 20px;
   background-color: #4f4f4f;
@@ -98,6 +97,6 @@ main {
   padding: 3px;
 }
 
-.modal button {
+#modal button {
   padding: 3px;
 }

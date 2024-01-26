@@ -16,7 +16,7 @@
           <div class="column__counter-todo">0</div>
         </header>
         <div class="column__task-list"></div>
-        <button class="column__button-add">+ Add a card</button>
+        <button id="column__button-add">+ Add a card</button>
       </div>
       <div class="column column-progress">
         <header class="column__header">
@@ -34,13 +34,13 @@
         <button class="column__button-delete-all">- Remove all cards</button>
       </div>
     </main>
-    <div class="modal" style="display: none;">
-      <div class="modal__task-add">
+    <div id="modal" style="display: none;">
+      <div id="modal__task-add" style="display: none;">
         <input type="text" class="modal__title" placeholder="title">
         <textarea class="modal__description" placeholder="description"></textarea>
         <footer class="modal__footer">
           <select class="modal__select-user"></select>
-          <button class="modal__cancel">Cancel</button>
+          <button id="modal__cancel">Cancel</button>
           <button class="modal__confirm">confirm</button>
         </footer>
       </div>
