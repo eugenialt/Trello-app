@@ -27,9 +27,6 @@ body {
   a:hover {
     color: #747bff;
   }
-  button {
-    background-color: #f9f9f9;
-  }
 }
 
 main {
@@ -59,4 +56,48 @@ main {
 .column button {
   background-color: transparent;
   border: 0;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00000030;
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal__task-add {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #4f4f4f;
+  border-radius: 20px;
+  gap: 10px;
+}
+
+.modal__title {
+  padding: 10px;
+}
+
+.modal__description {
+  width: 300px;
+  height: 140px;
+  padding: 10px;
+}
+
+.modal__footer {
+  display: flex;
+  gap: 15px;
+}
+
+.modal__select-user {
+  width: 165px;
+  padding: 3px;
+}
+
+.modal button {
+  padding: 3px;
 }
