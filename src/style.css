@@ -49,11 +49,21 @@ main {
   justify-content: space-between;
 }
 
-.column__task-list {
-  height: 515px;
+.column__list {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 510px;
+  gap: 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
 }
 
-.column button {
+.column__list::-webkit-scrollbar {
+  width: 1px;
+}
+
+button {
   background-color: transparent;
   border: 0;
 }
@@ -77,11 +87,11 @@ main {
   gap: 10px;
 }
 
-.modal__title {
+#modal__title-add {
   padding: 10px;
 }
 
-.modal__description {
+#modal__description-add {
   width: 300px;
   height: 140px;
   padding: 10px;
@@ -99,4 +109,30 @@ main {
 
 #modal button {
   padding: 3px;
+}
+
+.column__task {
+  background-color: #3d444a;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+ .column__task-title {
+  font-size: 18px;
+ }
+
+.column__task-description {
+  margin-bottom: 6px;
+  word-wrap: break-word;
+}
+
+.column__task-button  {
+  padding: 4px 6px;
+  background-color: #263038;
+  border-radius: 5px;
+} 
+
+.column__button-edit,
+.column__button-delete {
+  margin-right: 8px;
 }
