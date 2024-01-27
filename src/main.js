@@ -10,6 +10,9 @@ const taskListTodo = document.getElementById('column__list-todo')
 const taskListProgress = document.getElementById('column__list-progress')
 const taskListDone = document.getElementById('column__list-done')
 const columnList = [taskListTodo, taskListProgress, taskListDone]
+const counterTodo = document.getElementById('column__counter-todo');
+const counterProgress = document.getElementById('column__counter-progress');
+const counterDone = document.getElementById('column__counter-done');
 
 // Открытие модального окна добавления задачи
 function openModalAdd() {
@@ -79,7 +82,6 @@ function createTaskDescription(taskCard, id, description) {
 function createTaskControl(taskCard, id) {
   const tasks = JSON.parse(localStorage.getItem('tasks'))
   const taskIndex = searchById(tasks, id)
-
   if (tasks[taskIndex].status === 'todo') {
     const buttonEdit = createButton('edit', 'column__task-button column__button-edit', 'button')
     const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
@@ -98,8 +100,18 @@ function createTaskControl(taskCard, id) {
     buttonDelete.addEventListener('click', () => deleteTask(id))
     taskCard.append(buttonDelete)
   }
+  updateTaskCounter()
 }
 
+// Обновляет счетчики
+function updateTaskCounter() {
+  const tasks = JSON.parse(localStorage.getItem('tasks'))  
+  counterTodo.textContent = tasks.filter(task => task.status === 'todo').length
+  counterProgress.textContent = tasks.filter(task => task.status === 'progress').length
+  counterDone.textContent = tasks.filter(task => task.status === 'done').length
+}
+
+// обновляют статус при перетаскивании
 function newTaskStatus(tasks, tasksIndex, newStatus) {
   tasks[tasksIndex].status = newStatus
   localStorage.setItem('tasks', JSON.stringify(tasks))
