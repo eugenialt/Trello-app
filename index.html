@@ -3,12 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="src/reset.css">
     <link rel="stylesheet" href="src/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FE55: Trello</title>
   </head>
   <body>
-    <div id="app"></div>
+    <main>
+      <div class="column column-todo">
+        <header class="column__header">
+          <h2 class="column__title">ToDo</h2>
+          <div class="column__counter-todo">0</div>
+        </header>
+        <div id="column__list-todo" class="column__list"></div>
+        <button id="column__button-add">+ Add a card</button>
+      </div>
+      <div class="column column-progress">
+        <header class="column__header">
+          <h2 class="column__title">In Progress</h2>
+          <div class="column__counter-progress">0</div>
+        </header>
+        <div id="column__list-progress" class="column__list"></div>
+      </div>
+      <div class="column column-done">
+        <header class="column__header">
+          <h2 class="column__title-done">Done</h2>
+          <div class="column__counter-done">0</div>
+        </header>
+        <div id="column__list-done" class="column__list"></div>
+        <button class="column__button-delete-all">- Remove all cards</button>
+      </div>
+    </main>
+    <div id="modal" style="display: none;">
+      <form type="get" id="modal__task-add" style="display: none;">
+        <input type="text" id="modal__title-add" placeholder="title">
+        <textarea id="modal__description-add" placeholder="description"></textarea>
+        <footer class="modal__footer">
+          <select class="modal__select-user"></select>
+          <button id="modal__cancel-add">Cancel</button>
+          <button id="modal__confirm-add">confirm</button>
+        </footer>
+      </form>
+    </div>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
