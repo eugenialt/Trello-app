@@ -1,3 +1,4 @@
+/* Глобальные стили */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,22 +14,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Основные стили для тела документа */
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
 }
 
+/* Стили для светлой цветовой схемы */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+  /* Изменение цвета при наведении на ссылку */
   a:hover {
     color: #747bff;
   }
 }
 
+/* Главный контейнер */
 main {
   display: flex;
   justify-content: center;
@@ -36,6 +41,7 @@ main {
   gap: 40px;
 }
 
+/* Стили для колонок */
 .column {
   width: 290px;
   height: 600px;
@@ -44,30 +50,36 @@ main {
   border-radius: 20px;
 }
 
+/* Заголовок и содержимое колонок */
 .column__header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5px;
 }
 
+/* Список внутри колонки */
 .column__list {
   display: flex;
   flex-direction: column;
   overflow: auto;
-  height: 510px;
+  height: 500px;
   gap: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-radius: 10px;
 }
 
+/* Стили для полосы прокрутки внутри списка */
 .column__list::-webkit-scrollbar {
   width: 1px;
 }
 
+/* Стили для кнопок без стилей */
 button {
   background-color: transparent;
   border: 0;
 }
 
+/* Модальное окно */
 #modal {
   position: fixed;
   top: 0;
@@ -79,6 +91,7 @@ button {
   height: 100vh;
 }
 
+/* Блок добавления задачи в модальном окне */
 #modal__task-add {
   flex-direction: column;
   padding: 20px;
@@ -87,6 +100,7 @@ button {
   gap: 10px;
 }
 
+/* Заголовок и описание задачи в модальном окне */
 #modal__title-add {
   padding: 10px;
 }
@@ -97,40 +111,54 @@ button {
   padding: 10px;
 }
 
+/* Подвал модального окна с кнопками */
 .modal__footer {
   display: flex;
   gap: 15px;
 }
 
+/* Выбор пользователя в модальном окне */
 .modal__select-user {
   width: 165px;
   padding: 3px;
 }
 
+/* Стили для кнопок внутри модального окна */
 #modal button {
   padding: 3px;
 }
 
+/* Стили для блока задачи */
 .column__task {
   background-color: #3d444a;
   border-radius: 10px;
   padding: 10px;
 }
 
- .column__task-title {
+/* Заголовок и описание задачи в колонке */
+.column__task-title {
   font-size: 18px;
- }
+  margin-bottom: 1px;
+}
 
 .column__task-description {
   margin-bottom: 6px;
   word-wrap: break-word;
+  margin-bottom: 8px;
 }
 
-.column__task-button  {
-  padding: 4px 6px;
-  background-color: #263038;
-  border-radius: 5px;
-} 
+/* Контейнер кнопок */
+.column__task-control {
+  display: flex;
+  gap: 5px;
+}
+
+/* Кнопки внутри блока задачи */
+.column__task-button {
+  padding: 5px 7px;
+  background-color: #2a343c;
+  border-radius: 5px; 
+}
 
 .column__button-edit,
 .column__button-delete {
@@ -163,4 +191,3 @@ button {
   display: flex;
   gap: 20px;
 }
-

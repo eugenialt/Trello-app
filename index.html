@@ -24,37 +24,44 @@
       <div class="column column-todo">
         <h header class="column__header">
           <h2 class="column__title">ToDo</h2>
-          <div class="column__counter-todo">0</div>
+          <div id="column__counter-todo">0</div>
         </header>
         <div id="column__list-todo" class="column__list"></div>
-        <button id="column__button-add">+ Add a card</button>
+        <button type="button" id="column__button-add">+ Add a card</button>
       </div>
       <div class="column column-progress">
         <header class="column__header">
           <h2 class="column__title">In Progress</h2>
-          <div class="column__counter-progress">0</div>
+          <div id="column__counter-progress">0</div>
         </header>
         <div id="column__list-progress" class="column__list"></div>
       </div>
       <div class="column column-done">
         <header class="column__header">
-          <h2 class="column__title-done">Done</h2>
-          <div class="column__counter-done">0</div>
-        </header> 
-      </div>
+          <h2 class="column__title">Done</h2>
+          <div id="column__counter-done">0</div>
+        </header>
         <div id="column__list-done" class="column__list"></div>
-        <button class="column__button-delete-all">- Remove all cards</button>
+        <button type="button" class="column__button-delete-all">- Remove all cards</button>
       </div>
     </div>
     </main>
     <div id="modal" style="display: none;">
-      <form type="get" id="modal__task-add" style="display: none;">
-        <input type="text" id="modal__title-add" placeholder="title">
-        <textarea id="modal__description-add" placeholder="description"></textarea>
+      <form method="get" id="modal__task-add" class="modal__form">
+        <div class="modal__input-container">
+          <input type="text" id="modal__title-add" class="modal__input" placeholder="Title">
+        </div>
+        <div class="modal__textarea-container">
+          <textarea id="modal__description-add" class="modal__textarea" placeholder="Description"></textarea>
+        </div>
         <footer class="modal__footer">
-          <select class="modal__select-user"></select>
-          <button id="modal__cancel-add">Cancel</button>
-          <button id="modal__confirm-add">confirm</button>
+          <div class="modal__select-user-container">
+            <select id="modal__select-user" class="modal__select-user"></select>
+          </div>
+          <div class="modal__button-container">
+            <button type="reset" id="modal__cancel-add" class="modal__button">Cancel</button>
+            <button type="submit" id="modal__confirm-add" class="modal__button modal__button-confirm">Confirm</button>
+          </div>
         </footer>
       </form>
     </div>
