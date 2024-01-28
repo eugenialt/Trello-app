@@ -144,15 +144,15 @@ button {
   word-wrap: break-word;
 }
 
-/* Кнопки внутри блока задачи */
-.column__task-button {
-  padding: 4px 6px;
-  background-color: #263038;
-  border-radius: 5px;
+/* Контейнер кнопок */
+.column__task-control {
+  display: flex;
+  gap: 5px;
 }
 
-/* Кнопки редактирования и удаления */
-.column__button-edit,
-.column__button-delete {
-  margin-right: 8px;
+/* Кнопки внутри блока задачи */
+.column__task-button {
+  padding: 5px 7px;
+  background-color: #2a343c;
+  border-radius: 5px; 
 }
