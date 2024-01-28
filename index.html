@@ -16,7 +16,7 @@
           <div id="column__counter-todo">0</div>
         </header>
         <div id="column__list-todo" class="column__list"></div>
-        <button id="column__button-add">+ Add a card</button>
+        <button type="button" id="column__button-add">+ Add a card</button>
       </div>
       <div class="column column-progress">
         <header class="column__header">
@@ -31,7 +31,7 @@
           <div id="column__counter-done">0</div>
         </header>
         <div id="column__list-done" class="column__list"></div>
-        <button class="column__button-delete-all">- Remove all cards</button>
+        <button type="button" class="column__button-delete-all">- Remove all cards</button>
       </div>
     </main>
     <div id="modal" style="display: none;">
@@ -47,8 +47,8 @@
             <select id="modal__select-user" class="modal__select-user"></select>
           </div>
           <div class="modal__button-container">
-            <button id="modal__cancel-add" class="modal__button">Cancel</button>
-            <button id="modal__confirm-add" class="modal__button modal__button-confirm">Confirm</button>
+            <button type="reset" id="modal__cancel-add" class="modal__button">Cancel</button>
+            <button type="submit" id="modal__confirm-add" class="modal__button modal__button-confirm">Confirm</button>
           </div>
         </footer>
       </form>
