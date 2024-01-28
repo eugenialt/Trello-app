@@ -121,3 +121,10 @@ function createId() {
 modalAddConfirm.addEventListener('click', createTask)
 
 addEventListener('DOMContentLoaded', renderTask)
+
+//time
+function currentTime(){
+  const d = new Date();
+  document.getElementById('clock').innerHTML = d.toLocaleTimeString();
+}
+setInterval(currentTime, 1000);
