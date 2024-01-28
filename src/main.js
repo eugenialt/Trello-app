@@ -165,6 +165,7 @@ function searchById(tasks, searchId) {
 
 // Создание новой задачи
 function createTask() {
+  if (!(modalAddTitle.value && modalAddDescription.value)) {return}
   const tasks = JSON.parse(localStorage.getItem('tasks')) || []
   const title = modalAddTitle.value
   const description = modalAddDescription.value
