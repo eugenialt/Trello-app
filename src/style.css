@@ -54,6 +54,7 @@ main {
 .column__header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5px;
 }
 
 /* Список внутри колонки */
@@ -61,9 +62,9 @@ main {
   display: flex;
   flex-direction: column;
   overflow: auto;
-  height: 510px;
+  height: 500px;
   gap: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-radius: 10px;
 }
 
@@ -137,11 +138,13 @@ button {
 /* Заголовок и описание задачи в колонке */
 .column__task-title {
   font-size: 18px;
+  margin-bottom: 1px;
 }
 
 .column__task-description {
   margin-bottom: 6px;
   word-wrap: break-word;
+  margin-bottom: 8px;
 }
 
 /* Контейнер кнопок */
