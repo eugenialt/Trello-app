@@ -75,32 +75,51 @@ function createTaskDescription(taskCard, id, description) {
   taskDescription.classList.add('column__task-description')
   taskDescription.textContent = description
   taskCard.append(taskDescription)
-  createTaskControl(taskCard, id)
+  createTaskControlPanel(taskCard, id)
+}
+
+function createTaskControlPanel(taskCard, id) {
+  const controlPanel = document.createElement('div')
+  controlPanel.classList.add('column__task-control')
+  taskCard.append(controlPanel)
+  createTaskControlItem(controlPanel, id)
 }
 
 // Создание и добавление элементов управления задачей
-function createTaskControl(taskCard, id) {
+function createTaskControlItem(controlPanel, id) {
   const tasks = JSON.parse(localStorage.getItem('tasks'))
   const taskIndex = searchById(tasks, id)
   if (tasks[taskIndex].status === 'todo') {
-    const buttonEdit = createButton('edit', 'column__task-button column__button-edit', 'button')
-    const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
-    const buttonSubmit = createButton('>', 'column__task-button column__button-submit', 'button')
-    buttonDelete.addEventListener('click', () => deleteTask(id))
-    buttonSubmit.addEventListener('click', () => newTaskStatus(tasks, taskIndex, 'progress'))
-    taskCard.append(buttonEdit, buttonDelete, buttonSubmit)
+    controlPanelTodo(controlPanel, tasks, taskIndex)
   } else if (tasks[taskIndex].status === 'progress') {
-    const buttonCancel = createButton('cancel', 'column__task-button column__button-cancel', 'button')
-    const buttonComplete = createButton('Complete', 'column__task-button column__button-complete', 'button')
-    buttonCancel.addEventListener('click', () => newTaskStatus(tasks, taskIndex, 'todo'))
-    buttonComplete.addEventListener('click', () => newTaskStatus(tasks, taskIndex, 'done'))
-    taskCard.append(buttonCancel, buttonComplete)
+    controlPanelProgress(controlPanel, tasks, taskIndex)
   } else {
-    const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
-    buttonDelete.addEventListener('click', () => deleteTask(id))
-    taskCard.append(buttonDelete)
+    controlPanelDone(controlPanel, taskIndex)
   }
   updateTaskCounter()
+}
+
+function controlPanelTodo(controlPanel, tasks, taskIndex) {
+  const buttonEdit = createButton('edit', 'column__task-button column__button-edit', 'button')
+  const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
+  const buttonSubmit = createButton('>', 'column__task-button column__button-submit', 'button')
+  buttonDelete.addEventListener('click', () => deleteTask(taskIndex))
+  buttonSubmit.addEventListener('click', () => newTaskStatus(tasks, taskIndex, 'progress'))
+  controlPanel.append(buttonEdit, buttonDelete, buttonSubmit)
+}
+
+function controlPanelProgress(controlPanel, tasks, taskIndex) {
+  const buttonCancel = createButton('cancel', 'column__task-button column__button-cancel', 'button')
+  const buttonComplete = createButton('Complete', 'column__task-button column__button-complete', 'button')
+  buttonCancel.addEventListener('click', () => newTaskStatus(tasks, taskIndex, 'todo'))
+  buttonComplete.addEventListener('click', () => newTaskStatus(tasks, taskIndex, 'done'))
+  controlPanel.append(buttonCancel, buttonComplete)
+}
+
+function controlPanelDone(controlPanel, taskIndex) {
+  const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
+  buttonDelete.addEventListener('click', () => deleteTask(taskIndex))
+  controlPanel.append(buttonDelete)
 }
 
 // Обновляет счетчики
@@ -128,9 +147,8 @@ function createButton(text, className, type) {
 }
 
 // Удаление задачи по ID
-function deleteTask(id) {
+function deleteTask(taskIndex) {
   const tasks = JSON.parse(localStorage.getItem('tasks'))
-  const taskIndex = searchById(tasks, id)
   tasks.splice(taskIndex, 1)
   localStorage.setItem('tasks', JSON.stringify(tasks))
   renderTask()
