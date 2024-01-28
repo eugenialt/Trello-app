@@ -191,3 +191,10 @@ modalAddConfirm.addEventListener('click', (event) => createTask(event))
 
 // Рендеринг задач после загрузки страницы
 addEventListener('DOMContentLoaded', renderTask)
+
+//time
+function currentTime(){
+  const d = new Date();
+  document.getElementById('clock').innerHTML = d.toLocaleTimeString();
+}
+setInterval(currentTime, 1000);

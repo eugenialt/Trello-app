@@ -159,3 +159,35 @@ button {
   background-color: #2a343c;
   border-radius: 5px; 
 }
+
+.column__button-edit,
+.column__button-delete {
+  margin-right: 8px;
+}
+
+/*----container header----*/
+.container{
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: rgb(65, 118, 188);
+}
+.container_header{
+  background-color: rgb(43, 71, 163);
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+#clock{
+  color: rgb(225, 223, 223);
+  font-size: 25px;
+  font-weight: 600;
+}
+.column-wrapper{
+  display: flex;
+  gap: 20px;
+}
