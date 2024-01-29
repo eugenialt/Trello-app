@@ -164,12 +164,13 @@ function searchById(tasks, searchId) {
 }
 
 // Создание новой задачи
-function createTask() {
+function createTask(event) {
+  event.preventDefault()
   if (!(modalAddTitle.value && modalAddDescription.value)) {return}
   const tasks = JSON.parse(localStorage.getItem('tasks')) || []
   const title = modalAddTitle.value
   const description = modalAddDescription.value
-  const id = createId()
+  const id = createId(tasks)
   const status = 'todo'
   const newTask = { id, status, title, description }
   tasks.push(newTask)
@@ -179,13 +180,14 @@ function createTask() {
 }
 
 // Генерация уникального ID для задачи
-function createId() {
+function createId(tasks) {
   const randomNumber = Math.random()
-  const id = String(randomNumber).slice(-5)
-  return id
+  const createdId = String(randomNumber).slice(-5)
+  tasks.forEach(({id}) => {if (id === createdId) {return}})
+  return createdId
 }
 
-modalAddConfirm.addEventListener('click', createTask)
+modalAddConfirm.addEventListener('click', (event) => createTask(event))
 
 // Рендеринг задач после загрузки страницы
 addEventListener('DOMContentLoaded', renderTask)
