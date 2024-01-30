@@ -13,6 +13,7 @@ const columnList = [taskListTodo, taskListProgress, taskListDone]
 const counterTodo = document.getElementById('column__counter-todo');
 const counterProgress = document.getElementById('column__counter-progress');
 const counterDone = document.getElementById('column__counter-done');
+const containerWarning = document.getElementById('modal__warning-container')
 
 // Открытие модального окна добавления задачи
 function openModalAdd() {
@@ -29,6 +30,10 @@ function closeModalAdd() {
 }
 
 modalAddCancel.addEventListener('click', closeModalAdd)
+
+function closeModalchoice() {
+  containerWarning.innerHTML = ''
+}
 
 // Рендеринг карточек задач
 function renderTask() {
@@ -47,6 +52,7 @@ function createTaskCard(id, status, title, description) {
   taskCard.id = id
   column.append(taskCard)
   createTaskTitle(taskCard, id, title, description)
+  updateTaskCounter()
 }
 
 // Получение соответствующей колонки для задачи в зависимости от статуса
@@ -96,7 +102,6 @@ function createTaskControlItem(controlPanel, id) {
   } else {
     controlPanelDone(controlPanel, taskIndex)
   }
-  updateTaskCounter()
 }
 
 function controlPanelTodo(controlPanel, tasks, taskIndex) {
@@ -118,7 +123,7 @@ function controlPanelProgress(controlPanel, tasks, taskIndex) {
 
 function controlPanelDone(controlPanel, taskIndex) {
   const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
-  buttonDelete.addEventListener('click', () => deleteTask(taskIndex))
+  buttonDelete.addEventListener('click', () => generateWarning('choice', 'you are sure?', taskIndex))
   controlPanel.append(buttonDelete)
 }
 
@@ -166,7 +171,6 @@ function searchById(tasks, searchId) {
 // Создание новой задачи
 function createTask(event) {
   event.preventDefault()
-  if (!(modalAddTitle.value && modalAddDescription.value)) {return}
   const tasks = JSON.parse(localStorage.getItem('tasks')) || []
   const title = modalAddTitle.value
   const description = modalAddDescription.value
@@ -175,6 +179,8 @@ function createTask(event) {
   const newTask = { id, status, title, description }
   tasks.push(newTask)
   localStorage.setItem('tasks', JSON.stringify(tasks))
+  modalAddTitle.value =''
+  modalAddDescription.value = ''
   closeModalAdd()
   renderTask()
 }
@@ -187,7 +193,54 @@ function createId(tasks) {
   return createdId
 }
 
-modalAddConfirm.addEventListener('click', (event) => createTask(event))
+modalAddConfirm.addEventListener('click', (event) => generateWarning('choice', 'you are sure?', NaN, event))
+
+function generateWarning(type, description, taskIndex, event) {
+  if (event) {event.preventDefault()}
+  if (!(modalAddTitle.value && modalAddDescription.value)) {
+    if (type === 'choice') {
+      modalAdd.style.display = 'none'
+      generateWarning('Confirmation', 'Fill in each field', event)
+      return
+    } 
+  }
+  modalAdd.style.display = 'none'
+  const warning = document.createElement('div')
+  warning.classList.add('modal__form')
+  containerWarning.append(warning)
+  generateWarningDescription(type, warning, description, taskIndex)
+}
+
+function generateWarningDescription(type, warning, description, taskIndex) {
+  const warningDescription = document.createElement('h1')
+  warningDescription.textContent = description
+  warningDescription.classList.add('modal__title')
+  warning.append(warningDescription)
+  createWarningButtonContainer(type, warning, taskIndex)
+}
+
+function createWarningButtonContainer(type, warning, taskIndex) {
+  const container = document.createElement('div')
+  container.classList.add('modal__button-container')
+  warning.append(container)
+  generateWarningButton(type, container, taskIndex)
+}
+
+function generateWarningButton(type, container, taskIndex) {
+  if (taskIndex) {
+    
+  } else if (type === 'choice'){
+    const buttonCancel = createButton('Cancel', 'modal__warning-button', 'button')
+    const buttonConfirm = createButton('Confirm', 'modal__warning-button', 'button')
+    container.append(buttonCancel, buttonConfirm)
+    buttonCancel.addEventListener('click', () => {openModalAdd(); closeModalchoice()})
+    buttonConfirm.addEventListener('click', (event) => {createTask(event); closeModalchoice()})
+  } else {
+    const buttonOk = createButton('OK', 'modal__warning-button', 'button')
+    container.append(buttonOk)
+    buttonOk.addEventListener('click', () => {openModalAdd(); closeModalchoice()})
+  }
+}
 
 // Рендеринг задач после загрузки страницы
 addEventListener('DOMContentLoaded', renderTask)

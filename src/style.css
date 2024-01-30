@@ -67,7 +67,7 @@ button {
 }
 
 /* Блок добавления задачи в модальном окне */
-#modal__task-add {
+.modal__form {
   flex-direction: column;
   padding: 20px;
   background-color: #ffffff;
@@ -75,12 +75,22 @@ button {
   gap: 10px;
 }
 
-/* Заголовок и описание задачи в модальном окне */
-#modal__title-add {
-  padding: 10px;
+.modal__title {
+  margin-bottom: 10px;
 }
 
-#modal__description-add {
+.modal__button-container {
+  display: flex;
+  justify-content: right;
+  gap: 4px;
+}
+
+/* Заголовок и описание задачи в модальном окне */
+.modal__input {
+  padding: 7px 10px;
+}
+
+.modal__textarea {
   width: 300px;
   height: 140px;
   padding: 10px;
