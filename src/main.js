@@ -31,6 +31,17 @@ function closeModalAdd() {
 
 modalAddCancel.addEventListener('click', closeModalAdd)
 
+// Получаем задачи из хранилища.
+function getTasks() {
+  const tasks = JSON.parse(localStorage.getItem('tasks')) || []
+  return tasks
+}
+
+// Сохраняем задачи в хранилище
+function setTasks(tasks) {
+  localStorage.setItem('tasks',JSON.stringify(tasks))
+}
+
 function closeModalchoice() {
   containerWarning.innerHTML = ''
 }
@@ -40,7 +51,7 @@ function renderTask() {
   // Очищаем содержимое колонок
   columnList.forEach((element) => {element.innerHTML = ''})
   // рендерим карточки в колонках
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || []
+  const tasks = getTasks()
   tasks.forEach(({ id, status, title, description }) => createTaskCard(id, status, title, description))
 }
 
@@ -93,7 +104,7 @@ function createTaskControlPanel(taskCard, id) {
 
 // Создание и добавление элементов управления задачей
 function createTaskControlItem(controlPanel, id) {
-  const tasks = JSON.parse(localStorage.getItem('tasks'))
+  const tasks = getTasks()
   const taskIndex = searchById(tasks, id)
   if (tasks[taskIndex].status === 'todo') {
     controlPanelTodo(controlPanel, tasks, taskIndex)
@@ -129,7 +140,7 @@ function controlPanelDone(controlPanel, taskIndex) {
 
 // Обновляет счетчики
 function updateTaskCounter() {
-  const tasks = JSON.parse(localStorage.getItem('tasks'))  
+  const tasks = getTasks()
   counterTodo.textContent = tasks.filter(task => task.status === 'todo').length
   counterProgress.textContent = tasks.filter(task => task.status === 'progress').length
   counterDone.textContent = tasks.filter(task => task.status === 'done').length
@@ -138,7 +149,7 @@ function updateTaskCounter() {
 // обновляют статус при перетаскивании
 function newTaskStatus(tasks, tasksIndex, newStatus) {
   tasks[tasksIndex].status = newStatus
-  localStorage.setItem('tasks', JSON.stringify(tasks))
+  setItem(tasks)
   renderTask()
 }
 
@@ -153,9 +164,9 @@ function createButton(text, className, type) {
 
 // Удаление задачи по ID
 function deleteTask(taskIndex) {
-  const tasks = JSON.parse(localStorage.getItem('tasks'))
+  const tasks = getTasks()
   tasks.splice(taskIndex, 1)
-  localStorage.setItem('tasks', JSON.stringify(tasks))
+  setTasks(tasks)
   renderTask()
 }
 
@@ -174,7 +185,7 @@ function createTask(event) {
   const tasks = JSON.parse(localStorage.getItem('tasks')) || []
   const title = modalAddTitle.value
   const description = modalAddDescription.value
-  const id = createId(tasks)
+  const id = generateId(tasks)
   const status = 'todo'
   const newTask = { id, status, title, description }
   tasks.push(newTask)
@@ -186,10 +197,10 @@ function createTask(event) {
 }
 
 // Генерация уникального ID для задачи
-function createId(tasks) {
+function generateId(tasks) {
   const randomNumber = Math.random()
   const createdId = String(randomNumber).slice(-5)
-  tasks.forEach(({id}) => {if (id === createdId) {return}})
+  tasks.forEach(({id}) => {if (id === createdId) {return generateId(tasks)}});
   return createdId
 }
 
