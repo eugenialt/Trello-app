@@ -1,17 +1,5 @@
-/* Глобальные стили */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #2c2f33;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Основные стили для тела документа */
@@ -19,18 +7,6 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-}
-
-/* Стили для светлой цветовой схемы */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  /* Изменение цвета при наведении на ссылку */
-  a:hover {
-    color: #747bff;
-  }
 }
 
 /* Главный контейнер */
@@ -45,9 +21,6 @@ main {
 .column {
   width: 290px;
   height: 600px;
-  padding: 15px;
-  background-color: #313539;
-  border-radius: 20px;
 }
 
 /* Заголовок и содержимое колонок */
@@ -62,10 +35,11 @@ main {
   display: flex;
   flex-direction: column;
   overflow: auto;
-  height: 500px;
+  max-height: 500px;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
   border-radius: 10px;
+  padding: 5px;
 }
 
 /* Стили для полосы прокрутки внутри списка */
@@ -76,6 +50,7 @@ main {
 /* Стили для кнопок без стилей */
 button {
   background-color: transparent;
+  padding: 3px;
   border: 0;
 }
 
@@ -95,7 +70,7 @@ button {
 #modal__task-add {
   flex-direction: column;
   padding: 20px;
-  background-color: #4f4f4f;
+  background-color: #ffffff;
   border-radius: 20px;
   gap: 10px;
 }
@@ -123,14 +98,11 @@ button {
   padding: 3px;
 }
 
-/* Стили для кнопок внутри модального окна */
-#modal button {
-  padding: 3px;
-}
-
 /* Стили для блока задачи */
 .column__task {
-  background-color: #3d444a;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  box-shadow: 2px 2px 1px #dddddd;
   border-radius: 10px;
   padding: 10px;
 }
@@ -138,24 +110,17 @@ button {
 /* Заголовок и описание задачи в колонке */
 .column__task-title {
   font-size: 18px;
-  margin-bottom: 1px;
+  margin-bottom: 8px;
 }
 
 .column__task-description {
   margin-bottom: 6px;
   word-wrap: break-word;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 /* Контейнер кнопок */
 .column__task-control {
   display: flex;
   gap: 5px;
-}
-
-/* Кнопки внутри блока задачи */
-.column__task-button {
-  padding: 5px 7px;
-  background-color: #2a343c;
-  border-radius: 5px; 
 }
