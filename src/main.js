@@ -15,6 +15,13 @@ const counterProgress = document.getElementById('column__counter-progress');
 const counterDone = document.getElementById('column__counter-done');
 const containerWarning = document.getElementById('modal__warning-container')
 
+//time
+function currentTime(){
+  const d = new Date();
+  document.getElementById('clock').innerHTML = d.toLocaleTimeString();
+}
+setInterval(currentTime, 0);
+
 // Открытие модального окна добавления задачи
 function openModalAdd() {
   modal.style.display = 'flex'

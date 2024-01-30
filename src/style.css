@@ -8,7 +8,19 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
-
+/* шапка */
+.header{
+  background-color: rgb(45, 75, 173);
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+#clock{
+  color: rgb(225, 223, 223);
+  font-size: 25px;
+  font-weight: 600;
+}
 /* Главный контейнер */
 main {
   display: flex;
