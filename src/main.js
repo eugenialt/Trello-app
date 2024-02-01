@@ -15,8 +15,11 @@ const counterProgress = document.getElementById('column__counter-progress');
 const counterDone = document.getElementById('column__counter-done');
 const containerWarning = document.getElementById('modal__warning-container')
 
+//new code 
+
+
 //time
-function currentTime(){
+function currentTime() {
   const d = new Date();
   document.getElementById('clock').innerHTML = d.toLocaleTimeString();
 }
@@ -46,7 +49,7 @@ function getTasks() {
 
 // Сохраняем задачи в хранилище
 function setTasks(tasks) {
-  localStorage.setItem('tasks',JSON.stringify(tasks))
+  localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 
 function closeModalchoice() {
@@ -56,7 +59,7 @@ function closeModalchoice() {
 // Рендеринг карточек задач
 function renderTask() {
   // Очищаем содержимое колонок
-  columnList.forEach((element) => {element.innerHTML = ''})
+  columnList.forEach((element) => { element.innerHTML = '' })
   // рендерим карточки в колонках
   const tasks = getTasks()
   tasks.forEach(({ id, status, title, description }) => createTaskCard(id, status, title, description))
@@ -197,7 +200,7 @@ function createTask(event) {
   const newTask = { id, status, title, description }
   tasks.push(newTask)
   localStorage.setItem('tasks', JSON.stringify(tasks))
-  modalAddTitle.value =''
+  modalAddTitle.value = ''
   modalAddDescription.value = ''
   closeModalAdd()
   renderTask()
@@ -207,27 +210,28 @@ function createTask(event) {
 function generateId(tasks) {
   const randomNumber = Math.random()
   const createdId = String(randomNumber).slice(-5)
-  tasks.forEach(({id}) => {if (id === createdId) {return generateId(tasks)}});
+  tasks.forEach(({ id }) => { if (id === createdId) { return generateId(tasks) } });
   return createdId
 }
 
-modalAddConfirm.addEventListener('click', (event) => generateWarning('choice', 'you are sure?', NaN, event))
+// modalAddConfirm.addEventListener('click', (event) => generateWarning('choice', 'you are sure?', NaN, event))
 
-function generateWarning(type, description, taskIndex, event) {
-  if (event) {event.preventDefault()}
-  if (!(modalAddTitle.value && modalAddDescription.value)) {
-    if (type === 'choice') {
-      modalAdd.style.display = 'none'
-      generateWarning('Confirmation', 'Fill in each field', event)
-      return
-    } 
-  }
-  modalAdd.style.display = 'none'
-  const warning = document.createElement('div')
-  warning.classList.add('modal__form')
-  containerWarning.append(warning)
-  generateWarningDescription(type, warning, description, taskIndex)
-}
+// function generateWarning(type, description, taskIndex, event) {
+//   if (event) { event.preventDefault() }
+//   if (!(modalAddTitle.value && modalAddDescription.value)) {
+//     if (type === 'choice') {
+//       modalAdd.style.display = 'none'
+//       generateWarning('Confirmation', 'Fill in each field', event)
+//       return
+//     }
+//   }
+
+//   modalAdd.style.display = 'none'
+//   const warning = document.createElement('div')
+//   warning.classList.add('modal__form')
+//   containerWarning.append(warning)
+//   generateWarningDescription(type, warning, description, taskIndex)
+// }
 
 function generateWarningDescription(type, warning, description, taskIndex) {
   const warningDescription = document.createElement('h1')
@@ -246,19 +250,61 @@ function createWarningButtonContainer(type, warning, taskIndex) {
 
 function generateWarningButton(type, container, taskIndex) {
   if (taskIndex) {
-    
-  } else if (type === 'choice'){
+
+  } else if (type === 'choice') {
     const buttonCancel = createButton('Cancel', 'modal__warning-button', 'button')
     const buttonConfirm = createButton('Confirm', 'modal__warning-button', 'button')
     container.append(buttonCancel, buttonConfirm)
-    buttonCancel.addEventListener('click', () => {openModalAdd(); closeModalchoice()})
-    buttonConfirm.addEventListener('click', (event) => {createTask(event); closeModalchoice()})
+    buttonCancel.addEventListener('click', () => { openModalAdd(); closeModalchoice() })
+    buttonConfirm.addEventListener('click', (event) => { createTask(event); closeModalchoice() })
   } else {
     const buttonOk = createButton('OK', 'modal__warning-button', 'button')
     container.append(buttonOk)
-    buttonOk.addEventListener('click', () => {openModalAdd(); closeModalchoice()})
+    buttonOk.addEventListener('click', () => { openModalAdd(); closeModalchoice() })
   }
 }
 
 // Рендеринг задач после загрузки страницы
 addEventListener('DOMContentLoaded', renderTask)
+
+
+
+//new code
+
+modalAdd.addEventListener('click', handleEmptyFields)
+
+function handleEmptyFields(event) {
+  event.preventDefault();
+  if (!(modalAddTitle.value && modalAddDescription.value))
+    if (event.target.classList.contains('modal__button-confirm')) {
+      document.body.append(testModal);
+      testModal.showModal();
+    }
+}
+
+const generateModal = (message) => {
+
+  const modal = document.createElement('dialog');
+  modal.className = 'test-modal';
+
+  const textBlock = document.createElement('div')
+  textBlock.className = 'test-modal__text';
+  textBlock.innerText = message;
+
+  const closeButton = document.createElement('button')
+  closeButton.className = 'modal-button';
+  closeButton.innerText = 'close';
+  document.body.appendChild(modal);
+  modal.append(textBlock, closeButton);
+  return modal;
+
+}
+
+const testModal = generateModal('fill in both fields');
+
+const closeModalBtn = document.querySelector('.modal-button');
+closeModalBtn.addEventListener('click', () => {
+
+  testModal.close()
+
+})
