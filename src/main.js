@@ -191,7 +191,7 @@ function searchById(tasks, searchId) {
 
 // Создание новой задачи
 function createTask(event) {
-  event.preventDefault()
+  // event.preventDefault()
   const tasks = JSON.parse(localStorage.getItem('tasks')) || []
   const title = modalAddTitle.value
   const description = modalAddDescription.value
@@ -275,11 +275,14 @@ modalAdd.addEventListener('click', handleEmptyFields)
 
 function handleEmptyFields(event) {
   event.preventDefault();
-  if (!(modalAddTitle.value && modalAddDescription.value))
+  if (!(modalAddTitle.value && modalAddDescription.value)) {
     if (event.target.classList.contains('modal__button-confirm')) {
       document.body.append(testModal);
       testModal.showModal();
     }
+  } else { 
+    createTask()
+  }
 }
 
 const generateModal = (message) => {
