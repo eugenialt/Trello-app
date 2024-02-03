@@ -285,7 +285,7 @@ function handleEmptyFields(event) {
   }
 }
 
-const generateModal = (message) => {
+const generateModal = (message, type) => {
 
   const modal = document.createElement('dialog');
   modal.className = 'test-modal';
@@ -294,16 +294,27 @@ const generateModal = (message) => {
   textBlock.className = 'test-modal__text';
   textBlock.innerText = message;
 
+  if (type === 'confirm') { 
+
   const closeButton = document.createElement('button')
   closeButton.className = 'modal-button';
   closeButton.innerText = 'close';
   document.body.appendChild(modal);
   modal.append(textBlock, closeButton);
+  } else { 
+    const yesButton = document.createElement('button')
+    yesButton.className = 'modal-button';
+    yesButton.innerText = 'yes';
+    document.body.appendChild(modal);
+    modal.append(textBlock, yesButton);
+  }
+
+
   return modal;
 
 }
 
-const testModal = generateModal('fill in both fields');
+const testModal = generateModal('fill in both fields', 'confirm');
 
 const closeModalBtn = document.querySelector('.modal-button');
 closeModalBtn.addEventListener('click', () => {
@@ -311,3 +322,48 @@ closeModalBtn.addEventListener('click', () => {
   testModal.close()
 
 })
+
+
+// edit task: function + handler
+
+
+taskListTodo.addEventListener('click', handleBtnEdit)
+
+ function handleBtnEdit(event) {
+  if (event.target.classList.contains('column__button-edit')) {
+      const tasks = getTasks()
+      const taskId = event.target.closest('.column__task').id;
+      const task = tasks.find(({id}) => id === taskId);
+      console.log(task)
+      const testEditWindow = openEditWindow(task)
+      document.body.append(testEditWindow);
+      testEditWindow.showModal();
+      // openEditWindow(task) 
+      // setData(todos)
+  }
+}
+
+function openEditWindow(item) {
+
+  const editWindow = document.createElement('dialog')
+  editWindow.className = 'edit-dialog'; 
+  // editWindow.style.display = 'flex'; 
+  const titleHeadline = document.createElement('div'); 
+  titleHeadline.textContent = 'Title'; 
+  const titleBlock = document.createElement('textarea')
+  titleBlock.className = 'edit-headline'
+  titleBlock.value = item.title;
+  const descrHeadline = document.createElement('div'); 
+  descrHeadline.textContent = 'Description'; 
+  const descrBlock = document.createElement('textarea');
+  descrBlock.className = 'edit-headline'
+  descrBlock.value = item.description;
+  const btnSubmit = document.createElement('button');
+  btnSubmit.className = 'edit-submit-button'; 
+  btnSubmit.textContent = 'submit'; 
+  document.body.appendChild(editWindow)
+  editWindow.append(titleHeadline, titleBlock, descrHeadline, descrBlock, btnSubmit);
+  titleBlock.selectionStart = titleBlock.selectionEnd = titleBlock.value.length;
+  return editWindow; 
+ }
+

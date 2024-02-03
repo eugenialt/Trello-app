@@ -176,6 +176,7 @@ button {
   text-align: center;
   padding: 30px;
   margin-top: 140px;
+  border: 1px solid black;
   border-radius: 10px; 
 
 
@@ -195,4 +196,34 @@ button {
   border: 1px solid black; 
   background-color: darkcyan;
   color: white
+}
+
+.edit-title-input { 
+
+  width: 200px; 
+  height: 100px; 
+  margin: 0 auto; 
+
+}
+
+.edit-dialog { 
+  margin: 0 auto; 
+  width: 200px; 
+  margin-top: 155px;
+  padding: 10px; 
+  border: 1px solid grey;
+
+}
+
+.edit-headline { 
+
+  padding: 5px; 
+}
+
+.edit-submit-button { 
+
+  height: 30px; 
+  width: 100px; 
+  text-align: left;
+  border: 1px solid grey; 
 }
