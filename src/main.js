@@ -269,7 +269,9 @@ addEventListener('DOMContentLoaded', renderTask)
 
 
 
-//new code
+// new code
+
+// test warning
 
 modalAdd.addEventListener('click', handleEmptyFields)
 
@@ -288,22 +290,22 @@ function handleEmptyFields(event) {
 const generateModal = (message, type) => {
 
   const modal = document.createElement('dialog');
-  modal.className = 'test-modal';
+  modal.className = 'test-warning';
 
   const textBlock = document.createElement('div')
-  textBlock.className = 'test-modal__text';
+  textBlock.className = 'test-warning__text';
   textBlock.innerText = message;
 
   if (type === 'confirm') { 
 
   const closeButton = document.createElement('button')
-  closeButton.className = 'modal-button';
+  closeButton.className = 'test-warning__button';
   closeButton.innerText = 'close';
   document.body.appendChild(modal);
   modal.append(textBlock, closeButton);
   } else { 
     const yesButton = document.createElement('button')
-    yesButton.className = 'modal-button';
+    yesButton.className = 'test-warning__button';
     yesButton.innerText = 'yes';
     document.body.appendChild(modal);
     modal.append(textBlock, yesButton);
@@ -314,9 +316,9 @@ const generateModal = (message, type) => {
 
 }
 
-const testModal = generateModal('fill in both fields', 'confirm');
+const testModal = generateModal('Fill in both fields', 'confirm');
 
-const closeModalBtn = document.querySelector('.modal-button');
+const closeModalBtn = document.querySelector('.test-warning__button');
 closeModalBtn.addEventListener('click', () => {
 
   testModal.close()

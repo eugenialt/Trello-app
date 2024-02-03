@@ -169,38 +169,41 @@ button {
 
 /* new code */
 
-.test-modal {
+.test-warning {
   height: 150px;
   width: 300px;
-
   position: fixed;
   top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   text-align: center;
   padding: 30px;
-  border: 1px solid black;
+  border: 1px solid black; 
   border-radius: 10px; 
 
+}
+
+.test-warning:modal { 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px; 
 
 }
 
-.test-modal__text {
 
-  margin-bottom: 45px;
-}
-
-
-.modal-button {
+.test-warning__button {
   display: block;
   margin: 0 auto;
   width: 70px;
   height: 25px;
   border: 1px solid black; 
   background-color: darkcyan;
-  color: white
+  color: white; 
 }
+
+
+
 
 .edit-title-input { 
 
