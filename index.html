@@ -31,29 +31,10 @@
           <div id="column__counter-done">0</div>
         </header>
         <div id="column__list-done" class="column__list"></div>
-        <button type="button" class="column__button-delete-all">- Remove all cards</button>
+        <button type="button" id="column__button-delete-all">- Remove all cards</button>
       </div>
     </main>
-    <div id="modal" style="display: none;">
-      <form method="get" id="modal__task-add" class="modal__form">
-        <div class="modal__input-container">
-          <input type="text" id="modal__title-add" class="modal__input" placeholder="Title">
-        </div>
-        <div class="modal__textarea-container">
-          <textarea id="modal__description-add" class="modal__textarea" placeholder="Description"></textarea>
-        </div>
-        <footer class="modal__footer">
-          <div class="modal__select-user-container">
-            <select id="modal__select-user" class="modal__select-user"></select>
-          </div>
-          <div class="modal__button-container">
-            <button type="reset" id="modal__cancel-add" class="modal__button">Cancel</button>
-            <button type="submit" id="modal__confirm-add" class="modal__button modal__button-confirm">Confirm</button>
-          </div>
-        </footer>
-      </form>
-      <div id="modal__warning-container"></div>
-    </div>
+    <dialog id="modal"></dialog>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
