@@ -356,11 +356,13 @@ function createModalTextarea() {
   return textarea
 }
 
-// Создаёт селект меню пользователей, в модальном окне.
-function createModalSelect() {
-  const select = document.createElement('select')
-  select.classList.add('modal__select-user')
-  return select
+// Создаёт селект списка пользователей в модальном окне.
+function createModalSelect(selectId) {
+  const select = document.createElement('select');
+  select.classList.add('modal__select-user');
+  select.id = selectId;
+  populateUserEmails(select);
+  return select;
 }
 
 // управляет состоянием модального окна.
@@ -415,5 +417,29 @@ function deleteModal() {
   modal.innerHTML = ''
 }
 
-// Рендеринг задач после загрузки страницы
+// получаем пользователей с сервера
+function populateUserEmails(selectUser) {
+  fetch('https://jsonplaceholder.typicode.com/comments?postId=1')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Не удалось получить данные пользователей');
+      }
+      return response.json();
+    })
+    .then(comments => {
+      const uniqueEmails = [...new Set(comments.map(comment => comment.email))];
+      uniqueEmails.forEach(email => {
+        const option = document.createElement('option');
+        option.value = email;
+        option.textContent = email;
+        selectUser.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+
+
+  // Рендеринг задач после загрузки страницы
 addEventListener('DOMContentLoaded', renderTask)
