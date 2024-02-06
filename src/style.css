@@ -54,60 +54,6 @@ button {
   border: 0;
 }
 
-/* Модальное окно */
-#modal {
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #00000030;
-  width: 100vw;
-  height: 100vh;
-}
-
-/* Блок добавления задачи в модальном окне */
-.modal__form {
-  flex-direction: column;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 20px;
-  gap: 10px;
-}
-
-.modal__title {
-  margin-bottom: 10px;
-}
-
-.modal__button-container {
-  display: flex;
-  justify-content: right;
-  gap: 4px;
-}
-
-/* Заголовок и описание задачи в модальном окне */
-.modal__input {
-  padding: 7px 10px;
-}
-
-.modal__textarea {
-  width: 300px;
-  height: 140px;
-  padding: 10px;
-}
-
-/* Подвал модального окна с кнопками */
-.modal__footer {
-  display: flex;
-  gap: 15px;
-}
-
-/* Выбор пользователя в модальном окне */
-.modal__select-user {
-  width: 165px;
-  padding: 3px;
-}
-
 /* Стили для блока задачи */
 .column__task {
   background-color: #ffffff;
@@ -129,8 +75,51 @@ button {
   margin-bottom: 5px;
 }
 
-/* Контейнер кнопок */
-.column__task-control {
+#modal {
+  position: fixed;
   display: flex;
-  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  border: 0;
+}
+
+#modal__task-form,
+#modal__warning {
+  padding: 17px;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.modal__input-container,
+.modal__textarea-container {
+  margin-bottom: 10px;
+}
+
+#modal__input-title {
+  padding: 5px 8px;
+}
+
+#modal__description {
+  width: 300px;
+  height: 140px;
+  padding: 8px;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal__select-user {
+  width: 170px;
+}
+
+.modal__control-container {
+  display: flex;
+  justify-content: right;
+  padding: 3px 0;
+  gap: 4px;
 }

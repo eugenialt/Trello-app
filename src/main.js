@@ -3,8 +3,6 @@ const buttonAdd = document.getElementById('column__button-add')
 const modal = document.getElementById('modal')
 const modalAdd = document.getElementById('modal__task-add')
 const modalAddCancel = document.getElementById('modal__cancel-add')
-const modalAddTitle = document.getElementById('modal__title-add')
-const modalAddDescription = document.getElementById('modal__description-add')
 const modalAddConfirm = document.getElementById('modal__confirm-add')
 const taskListTodo = document.getElementById('column__list-todo')
 const taskListProgress = document.getElementById('column__list-progress')
@@ -14,22 +12,18 @@ const counterTodo = document.getElementById('column__counter-todo');
 const counterProgress = document.getElementById('column__counter-progress');
 const counterDone = document.getElementById('column__counter-done');
 const containerWarning = document.getElementById('modal__warning-container')
+const deleteAllButton = document.getElementById('column__button-delete-all');
 
-// Открытие модального окна добавления задачи
-function openModalAdd() {
-  modal.style.display = 'flex'
-  modalAdd.style.display = 'flex'
+deleteAllButton.addEventListener('click', () => generateModal('questionDeleteAll', 'Delete all completed tasks?'));
+
+function removeAllItems() {
+  const tasks = getTasks();
+  const updatedTasks = tasks.filter(task => task.status !== 'done');
+  setTasks(updatedTasks);
+  renderTask();
 }
 
-buttonAdd.addEventListener('click', openModalAdd)
-
-// Закрытие модального окна добавления задачи
-function closeModalAdd() {
-  modal.style.display = 'none'
-  modalAdd.style.display = 'none'
-}
-
-modalAddCancel.addEventListener('click', closeModalAdd)
+buttonAdd.addEventListener('click', () => generateModal('createTask'))
 
 // Получаем задачи из хранилища.
 function getTasks() {
@@ -39,7 +33,7 @@ function getTasks() {
 
 // Сохраняем задачи в хранилище
 function setTasks(tasks) {
-  localStorage.setItem('tasks',JSON.stringify(tasks))
+  localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 
 function closeModalchoice() {
@@ -107,34 +101,35 @@ function createTaskControlItem(controlPanel, id) {
   const tasks = getTasks()
   const taskIndex = searchById(tasks, id)
   if (tasks[taskIndex].status === 'todo') {
-    controlPanelTodo(controlPanel, tasks, taskIndex)
+    controlPanelTodo(controlPanel, taskIndex)
   } else if (tasks[taskIndex].status === 'progress') {
-    controlPanelProgress(controlPanel, tasks, taskIndex)
+    controlPanelProgress(controlPanel, taskIndex)
   } else {
     controlPanelDone(controlPanel, taskIndex)
   }
 }
 
-function controlPanelTodo(controlPanel, tasks, taskIndex) {
+function controlPanelTodo(controlPanel, taskIndex) {
   const buttonEdit = createButton('edit', 'column__task-button column__button-edit', 'button')
   const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
   const buttonSubmit = createButton('>', 'column__task-button column__button-submit', 'button')
-  buttonDelete.addEventListener('click', () => deleteTask(taskIndex))
-  buttonSubmit.addEventListener('click', () => newTaskStatus(tasks, taskIndex, 'progress'))
+  buttonEdit.addEventListener('click', () => generateModal('editTask', 'description', taskIndex))
+  buttonDelete.addEventListener('click', () => generateModal('questionDelete', 'Delete task?', taskIndex))
+  buttonSubmit.addEventListener('click', () => generateModal('questionProgress', 'start task?', taskIndex))
   controlPanel.append(buttonEdit, buttonDelete, buttonSubmit)
 }
 
-function controlPanelProgress(controlPanel, tasks, taskIndex) {
+function controlPanelProgress(controlPanel, taskIndex) {
   const buttonCancel = createButton('cancel', 'column__task-button column__button-cancel', 'button')
   const buttonComplete = createButton('Complete', 'column__task-button column__button-complete', 'button')
-  buttonCancel.addEventListener('click', () => newTaskStatus(tasks, taskIndex, 'todo'))
-  buttonComplete.addEventListener('click', () => newTaskStatus(tasks, taskIndex, 'done'))
+  buttonCancel.addEventListener('click', () => generateModal('questionTodo', 'Cancel task execution?', taskIndex))
+  buttonComplete.addEventListener('click', () => generateModal('questionDone', 'to perform the task?', taskIndex))
   controlPanel.append(buttonCancel, buttonComplete)
 }
 
 function controlPanelDone(controlPanel, taskIndex) {
   const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
-  buttonDelete.addEventListener('click', () => generateWarning('choice', 'you are sure?', taskIndex))
+  buttonDelete.addEventListener('click', () => generateModal('questionDelete', 'you are sure?', taskIndex))
   controlPanel.append(buttonDelete)
 }
 
@@ -149,7 +144,7 @@ function updateTaskCounter() {
 // обновляют статус при перетаскивании
 function newTaskStatus(tasks, tasksIndex, newStatus) {
   tasks[tasksIndex].status = newStatus
-  setItem(tasks)
+  setTasks(tasks)
   renderTask()
 }
 
@@ -180,10 +175,11 @@ function searchById(tasks, searchId) {
 }
 
 // Создание новой задачи
-function createTask(event) {
-  event.preventDefault()
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || []
+function createTask() {
+  const tasks = getTasks()
+  const modalAddTitle = document.getElementById('modal__input-title')
   const title = modalAddTitle.value
+  const modalAddDescription = document.getElementById('modal__description')
   const description = modalAddDescription.value
   const id = generateId(tasks)
   const status = 'todo'
@@ -192,7 +188,7 @@ function createTask(event) {
   localStorage.setItem('tasks', JSON.stringify(tasks))
   modalAddTitle.value =''
   modalAddDescription.value = ''
-  closeModalAdd()
+  deleteModal()
   renderTask()
 }
 
@@ -204,54 +200,213 @@ function generateId(tasks) {
   return createdId
 }
 
-modalAddConfirm.addEventListener('click', (event) => generateWarning('choice', 'you are sure?', NaN, event))
+function editTask(taskIndex) {
+  const todos = getTasks()
+  const modalTitle = document.getElementById('modal__input-title')
+  const modalDescription = document.getElementById('modal__description')
+  const newTitle = modalTitle.value
+  const newDescription = modalDescription.value
+  todos[taskIndex].title = newTitle
+  todos[taskIndex].description = newDescription
+  setTasks(todos)
+  deleteModal()
+  renderTask()
+}
 
-function generateWarning(type, description, taskIndex, event) {
-  if (event) {event.preventDefault()}
-  if (!(modalAddTitle.value && modalAddDescription.value)) {
-    if (type === 'choice') {
-      modalAdd.style.display = 'none'
-      generateWarning('Confirmation', 'Fill in each field', event)
-      return
-    } 
+// Собирает модальное окно по типу.
+// type = ['createTask', 'editTask', 
+// 'questionDelete', modalConfirmation, confirmation]
+function generateModal(type, description, taskIndex) {
+  if (type === 'createTask' || type === 'editTask') {
+    createModalTask(type, taskIndex)
+  } else if (type === 'questionDelete' || type === 'questionDeleteAll') {
+    createModalWarning(type, description, taskIndex)
+  } else if (type === 'questionProgress' || type === 'questionTodo' || type === 'questionDone') {
+    createModalWarning(type, description, taskIndex)
+  } else {console.error('Type undefined:', type)}
+}
+
+// Собирает модальное окно, для создания задачи.
+function createModalTask(type, taskIndex) {
+  const form = createModalForm('modal__task-form')
+  modal.append(form)
+  createModalTitle(form, type, taskIndex)
+  createModalDescription(form, type, taskIndex)
+  createModalFooter(form, type, taskIndex)
+}
+
+// Создаёт форму модального окна.
+function createModalForm(id) {
+  const form = document.createElement('form')
+  form.method = 'get'
+  form.id = id
+  return form
+}
+
+// собирвет модальное окно warning
+function createModalWarning(type, titleText, taskIndex) {
+  const form = createModalForm('modal__warning')
+  modal.append(form)
+  createWarningTitle(form, titleText)
+  createModalFooter(form, type, taskIndex, taskIndex)
+}
+
+// Создаёт поле для ввода заголовка задачи.
+function createModalTitle(form, type, taskIndex) {
+  const divTitle = createDiv('modal__input-container')
+  const input = createModalInput(type, taskIndex)
+  form.append(divTitle)
+  divTitle.append(input)
+}
+
+// создаёт title для Warning
+function createWarningTitle(form, titleText) {
+  const title = document.createElement('h2')
+  title.classList.add('modal__title')
+  title.textContent = titleText
+  form.append(title)
+}
+
+// Создаёт описание модального окна.
+function createModalDescription(form, type, taskIndex) {
+  const divTextarea = createDiv('modal__textarea-container') 
+  const textarea = createModalTextarea(type, taskIndex)
+  
+  form.append(divTextarea)
+  divTextarea.append(textarea)
+}
+
+// Создаёт подвал модального окна.
+function createModalFooter(form, type, taskIndex) {
+  const divFooter = createDiv('modal__footer')
+  const divControl = createDiv('modal__control-container')
+  if (type === 'createTask' || type === 'editTask') {
+    const select = createModalSelect()
+    divFooter.append(select)
   }
-  modalAdd.style.display = 'none'
-  const warning = document.createElement('div')
-  warning.classList.add('modal__form')
-  containerWarning.append(warning)
-  generateWarningDescription(type, warning, description, taskIndex)
+  form.append(divFooter)
+  divFooter.append(divControl)
+  generateModalButton(divControl, type, taskIndex)
 }
 
-function generateWarningDescription(type, warning, description, taskIndex) {
-  const warningDescription = document.createElement('h1')
-  warningDescription.textContent = description
-  warningDescription.classList.add('modal__title')
-  warning.append(warningDescription)
-  createWarningButtonContainer(type, warning, taskIndex)
-}
-
-function createWarningButtonContainer(type, warning, taskIndex) {
-  const container = document.createElement('div')
-  container.classList.add('modal__button-container')
-  warning.append(container)
-  generateWarningButton(type, container, taskIndex)
-}
-
-function generateWarningButton(type, container, taskIndex) {
-  if (taskIndex) {
-    
-  } else if (type === 'choice'){
-    const buttonCancel = createButton('Cancel', 'modal__warning-button', 'button')
-    const buttonConfirm = createButton('Confirm', 'modal__warning-button', 'button')
-    container.append(buttonCancel, buttonConfirm)
-    buttonCancel.addEventListener('click', () => {openModalAdd(); closeModalchoice()})
-    buttonConfirm.addEventListener('click', (event) => {createTask(event); closeModalchoice()})
+// Создаёт панель управлени.
+function generateModalButton(divControl, type, taskIndex) {
+  if (type === 'createTask' || type === 'editTask') {
+    const buttonCancel = createModalButton('Cancel', 'modal__button-cancel', 'button')
+    const buttonConfirm = createModalButton('Confirm', 'modal__button-confirm', 'button')
+    buttonCancel.addEventListener('click', deleteModal)
+    bindingEvents(buttonConfirm, type, taskIndex)
+    divControl.append(buttonCancel, buttonConfirm)
+  } else if (type === 'questionDelete' || type === 'questionDeleteAll' || type === 'questionProgress' || type === 'questionTodo' || type === 'questionDone') {
+    const buttonCancel = createModalButton('Cancel', 'modal__button-cancel', 'button')
+    const buttonConfirm = createModalButton('Confirm', 'modal__button-confirm', 'button')
+    buttonCancel.addEventListener('click', deleteModal)
+    bindingEvents(buttonConfirm, type, taskIndex)
+    divControl.append(buttonCancel, buttonConfirm)
   } else {
-    const buttonOk = createButton('OK', 'modal__warning-button', 'button')
-    container.append(buttonOk)
-    buttonOk.addEventListener('click', () => {openModalAdd(); closeModalchoice()})
-  }
+    const buttonOk = createModalButton('ok', 'modal__button-ok', 'button')
+    divControl.append(buttonOk)
+  } 
+  
+  controlModal()
 }
+
+function createModalButton(text, id, type) {
+  const button = document.createElement('button')
+  button.id = id
+  button.type = type
+  button.textContent = text
+  return button
+}
+
+// Создаёт див.
+function createDiv(className) {
+  const div = document.createElement('div')
+  div.classList.add(className)
+  return div
+}
+
+// Сзадёт строку ввода, в модальном окне, для заголовка задачи.
+function createModalInput(type, taskIndex) {
+  const input = document.createElement('input')
+  input.id = 'modal__input-title'
+  input.type = 'text'
+  input.placeholder = 'Title'
+  if (type === 'editTask') {
+    const tasks = getTasks()
+    input.value = tasks[taskIndex].title
+  }
+  return input
+}
+
+// Сзадёт строку ввода, в модальном окне, для описания задачи.
+function createModalTextarea(type, taskIndex) {
+  const textarea = document.createElement('textarea')
+  textarea.id = 'modal__description'
+  textarea.placeholder = 'Description'
+  if (type === 'editTask') {
+    const tasks = getTasks()
+    textarea.value = tasks[taskIndex].description
+  }
+  return textarea
+}
+
+// Создаёт селект меню пользователей, в модальном окне.
+function createModalSelect() {
+  const select = document.createElement('select')
+  select.classList.add('modal__select-user')
+  return select
+}
+
+// управляет состоянием модального окна.
+function controlModal() {
+  modal.showModal()
+}
+
+// вешает нужные обрпботчики
+function bindingEvents(variable, type, taskIndex) {
+  if (type === 'createTask') {
+    variable.addEventListener('click', () => {createTask(); deleteModal()})
+  } else if (type === 'editTask') {
+    variable.addEventListener('click', () => {editTask(taskIndex); deleteModal()})
+  } else if (type === 'questionDelete') {
+    variable.addEventListener('click', () => {deleteModal(); deleteTask(taskIndex)})
+  } else if (type === 'questionDeleteAll') {
+    variable.addEventListener('click', () => {deleteModal(); removeAllItems()})
+  } else if (type === 'questionProgress') {
+    const tasks = getTasks()
+    variable.addEventListener('click', () => {deleteModal(); newTaskStatus(tasks, taskIndex, 'progress')})
+  } else if (type === 'questionTodo') {
+    const tasks = getTasks()
+    variable.addEventListener('click', () => {deleteModal(); newTaskStatus(tasks, taskIndex, 'todo')})
+  } else if (type === 'questionDone') {
+    const tasks = getTasks()
+    variable.addEventListener('click', () => {deleteModal(); newTaskStatus(tasks, taskIndex, 'done')})
+  } else {return}
+}
+
+function openTaskModal(form) {
+  form.style.display = 'block'
+}
+
+function closeTaskModal(form) {
+  form.style.display = 'none'
+}
+
+function removeModal(form) {
+  form.remove()
+}
+
+function deleteModal() {
+  modal.close()
+  modal.innerHTML = ''
+}
+
+addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    event.preventDefault();
+  }
+});
 
 // Рендеринг задач после загрузки страницы
 addEventListener('DOMContentLoaded', renderTask)
