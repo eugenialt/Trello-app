@@ -1,4 +1,4 @@
-// Получение элементов DOM
+// Получение элементов DOM.
 const buttonAdd = document.getElementById('column__button-add')
 const modal = document.getElementById('modal')
 const modalAdd = document.getElementById('modal__task-add')
@@ -8,21 +8,23 @@ const taskListTodo = document.getElementById('column__list-todo')
 const taskListProgress = document.getElementById('column__list-progress')
 const taskListDone = document.getElementById('column__list-done')
 const columnList = [taskListTodo, taskListProgress, taskListDone]
-const counterTodo = document.getElementById('column__counter-todo');
-const counterProgress = document.getElementById('column__counter-progress');
-const counterDone = document.getElementById('column__counter-done');
+const counterTodo = document.getElementById('column__counter-todo')
+const counterProgress = document.getElementById('column__counter-progress')
+const counterDone = document.getElementById('column__counter-done')
 const containerWarning = document.getElementById('modal__warning-container')
-const deleteAllButton = document.getElementById('column__button-delete-all');
+const deleteAllButton = document.getElementById('column__button-delete-all')
 
-deleteAllButton.addEventListener('click', () => generateModal('questionDeleteAll', 'Delete all completed tasks?'));
+// кнопка удаления, всех задачь.
+deleteAllButton.addEventListener('click', () => generateModal('questionDeleteAll', 'Delete all completed tasks?'))
 
 function removeAllItems() {
-  const tasks = getTasks();
-  const updatedTasks = tasks.filter(task => task.status !== 'done');
-  setTasks(updatedTasks);
-  renderTask();
+  const tasks = getTasks()
+  const updatedTasks = tasks.filter(task => task.status !== 'done')
+  setTasks(updatedTasks)
+  renderTask()
 }
 
+// Кнопка создания задачи.
 buttonAdd.addEventListener('click', () => generateModal('createTask'))
 
 // Получаем задачи из хранилища.
@@ -31,25 +33,21 @@ function getTasks() {
   return tasks
 }
 
-// Сохраняем задачи в хранилище
+// Сохраняем задачи в хранилище.
 function setTasks(tasks) {
   localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 
-function closeModalchoice() {
-  containerWarning.innerHTML = ''
-}
-
-// Рендеринг карточек задач
+// Рендеринг карточек задач.
 function renderTask() {
-  // Очищаем содержимое колонок
+  // Очищаем содержимое колонок.
   columnList.forEach((element) => {element.innerHTML = ''})
-  // рендерим карточки в колонках
+  // рендерим карточки в колонках.
   const tasks = getTasks()
   tasks.forEach(({ id, status, title, description }) => createTaskCard(id, status, title, description))
 }
 
-// Создание и добавление карточки задачи в соответствующую колонку
+// Создание и добавление карточки задачи в соответствующую колонку.
 function createTaskCard(id, status, title, description) {
   const column = getColumnName(status)
   const taskCard = document.createElement('div')
@@ -60,7 +58,7 @@ function createTaskCard(id, status, title, description) {
   updateTaskCounter()
 }
 
-// Получение соответствующей колонки для задачи в зависимости от статуса
+// Получение соответствующей колонки для задачи в зависимости от статуса.
 function getColumnName(status) {
   if (status === 'todo') {
     return taskListTodo
@@ -71,7 +69,7 @@ function getColumnName(status) {
   }
 }
 
-// Создание и добавление заголовка задачи
+// Создание и добавление заголовка задачи.
 function createTaskTitle(taskCard, id, title, description) {
   const taskTitle = document.createElement('h3')
   taskTitle.classList.add('column__task-title')
@@ -80,7 +78,7 @@ function createTaskTitle(taskCard, id, title, description) {
   createTaskDescription(taskCard, id, description)
 }
 
-// Создание и добавление описания задачи
+// Создание и добавление описания задачи.
 function createTaskDescription(taskCard, id, description) {
   const taskDescription = document.createElement('div')
   taskDescription.classList.add('column__task-description')
@@ -96,7 +94,7 @@ function createTaskControlPanel(taskCard, id) {
   createTaskControlItem(controlPanel, id)
 }
 
-// Создание и добавление элементов управления задачей
+// Создание и добавление элементов управления задачей.
 function createTaskControlItem(controlPanel, id) {
   const tasks = getTasks()
   const taskIndex = searchById(tasks, id)
@@ -133,7 +131,7 @@ function controlPanelDone(controlPanel, taskIndex) {
   controlPanel.append(buttonDelete)
 }
 
-// Обновляет счетчики
+// Обновляет счетчики.
 function updateTaskCounter() {
   const tasks = getTasks()
   counterTodo.textContent = tasks.filter(task => task.status === 'todo').length
@@ -141,14 +139,14 @@ function updateTaskCounter() {
   counterDone.textContent = tasks.filter(task => task.status === 'done').length
 }
 
-// обновляют статус при перетаскивании
+// обновляют статус при перетаскивании.
 function newTaskStatus(tasks, tasksIndex, newStatus) {
   tasks[tasksIndex].status = newStatus
   setTasks(tasks)
   renderTask()
 }
 
-// Создание кнопки с указанными параметрами
+// Создание кнопки с указанными параметрами.
 function createButton(text, className, type) {
   const button = document.createElement('button')
   button.className = className
@@ -157,7 +155,7 @@ function createButton(text, className, type) {
   return button
 }
 
-// Удаление задачи по ID
+// Удаление задачи по ID.
 function deleteTask(taskIndex) {
   const tasks = getTasks()
   tasks.splice(taskIndex, 1)
@@ -165,7 +163,7 @@ function deleteTask(taskIndex) {
   renderTask()
 }
 
-// Поиск индекса задачи по ID
+// Поиск индекса задачи по ID.
 function searchById(tasks, searchId) {
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].id === searchId) {
@@ -174,7 +172,7 @@ function searchById(tasks, searchId) {
   }
 }
 
-// Создание новой задачи
+// Создание новой задачи.
 function createTask() {
   const tasks = getTasks()
   const modalAddTitle = document.getElementById('modal__input-title')
@@ -192,7 +190,7 @@ function createTask() {
   renderTask()
 }
 
-// Генерация уникального ID для задачи
+// Генерация уникального ID для задачи.
 function generateId(tasks) {
   const randomNumber = Math.random()
   const createdId = String(randomNumber).slice(-5)
@@ -200,6 +198,7 @@ function generateId(tasks) {
   return createdId
 }
 
+// Редактирование задачи.
 function editTask(taskIndex) {
   const todos = getTasks()
   const modalTitle = document.getElementById('modal__input-title')
@@ -214,8 +213,6 @@ function editTask(taskIndex) {
 }
 
 // Собирает модальное окно по типу.
-// type = ['createTask', 'editTask', 
-// 'questionDelete', modalConfirmation, confirmation]
 function generateModal(type, description, taskIndex) {
   if (type === 'createTask' || type === 'editTask') {
     createModalTask(type, taskIndex)
@@ -243,7 +240,7 @@ function createModalForm(id) {
   return form
 }
 
-// собирвет модальное окно warning
+// собирвет модальное окно warning.
 function createModalWarning(type, titleText, taskIndex) {
   const form = createModalForm('modal__warning')
   modal.append(form)
@@ -259,7 +256,7 @@ function createModalTitle(form, type, taskIndex) {
   divTitle.append(input)
 }
 
-// создаёт title для Warning
+// создаёт title для Warning.
 function createWarningTitle(form, titleText) {
   const title = document.createElement('h2')
   title.classList.add('modal__title')
@@ -311,6 +308,7 @@ function generateModalButton(divControl, type, taskIndex) {
   controlModal()
 }
 
+// Создаёт кнопку, в модаальном окне.
 function createModalButton(text, id, type) {
   const button = document.createElement('button')
   button.id = id
@@ -363,7 +361,7 @@ function controlModal() {
   modal.showModal()
 }
 
-// вешает нужные обрпботчики
+// вешает нужные обрпботчики.
 function bindingEvents(variable, type, taskIndex) {
   if (type === 'createTask') {
     variable.addEventListener('click', () => {createTask(); deleteModal()})
@@ -383,14 +381,6 @@ function bindingEvents(variable, type, taskIndex) {
     const tasks = getTasks()
     variable.addEventListener('click', () => {deleteModal(); newTaskStatus(tasks, taskIndex, 'done')})
   } else {return}
-}
-
-function openTaskModal(form) {
-  form.style.display = 'block'
-}
-
-function closeTaskModal(form) {
-  form.style.display = 'none'
 }
 
 function removeModal(form) {
