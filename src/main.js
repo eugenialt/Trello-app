@@ -23,35 +23,22 @@ function currentTime(){
 }
 
 
-//toggle theme
-
-const init = () =>{
-  let theme = null
-  getTheme('theme').length > 0 ? theme = getTheme('theme') : theme = 'light'
-  document.documentElement.setAttribute('theme', `${theme}`)
-}
-init()
 
 //обработчик событий
 const toggleItem = document.getElementById('toggle_theme')
 toggleItem.addEventListener('click', toggleTheme)
 
-//local Storage
-function getTheme(){
-  return JSON.stringify(localStorage.getItem('theme')) 
-}
-function setTheme(key, value){
- localStorage.setItem(key, value);
-}
-
-
-
-
+const getTheme = (theme) => {
+  return JSON.parse(localStorage.getItem(theme) ?? '[]')
+ }
  
+ const setTheme = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value))
+ }
 
 //функция переключения темы
    
-  function toggleTheme(event){
+  function toggleTheme(){
     if(getTheme('theme') === 'dark'){
     document.documentElement.setAttribute('theme', 'light');  
     setTheme('theme', 'light')
@@ -64,6 +51,14 @@ function setTheme(key, value){
 }
 
 
+//toggle theme
+
+const init = () =>{
+  let theme = null
+  getTheme('theme').length > 0 ? theme = getTheme('theme') : theme = 'light'
+  document.documentElement.setAttribute('theme', `${theme}`)
+}
+init()
 
 
 
