@@ -14,6 +14,64 @@ const counterDone = document.getElementById('column__counter-done')
 const containerWarning = document.getElementById('modal__warning-container')
 const deleteAllButton = document.getElementById('column__button-delete-all')
 
+//time
+const time = setInterval(currentTime, 0);
+function currentTime(){
+  let now = new Date();
+  const currentTime =  document.getElementById("clock");
+  currentTime.innerHTML = now.toLocaleTimeString();
+}
+
+
+//toggle theme
+
+const init = () =>{
+  let theme = null
+  getTheme('theme').length > 0 ? theme = getTheme('theme') : theme = 'light'
+  document.documentElement.setAttribute('theme', `${theme}`)
+}
+init()
+
+//обработчик событий
+const toggleItem = document.getElementById('toggle_theme')
+toggleItem.addEventListener('click', toggleTheme)
+
+//local Storage
+function getTheme(){
+  return JSON.stringify(localStorage.getItem('theme')) 
+}
+function setTheme(key, value){
+ localStorage.setItem(key, value);
+}
+
+
+
+
+ 
+
+//функция переключения темы
+   
+  function toggleTheme(event){
+    if(getTheme('theme') === 'dark'){
+    document.documentElement.setAttribute('theme', 'light');  
+    setTheme('theme', 'light')
+  }
+  else{
+    document.documentElement.setAttribute('theme', 'dark');
+    setTheme('theme', 'dark')
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
 // кнопка удаления, всех задачь.
 deleteAllButton.addEventListener('click', () => generateModal('questionDeleteAll', 'Delete all completed tasks?'))
 
