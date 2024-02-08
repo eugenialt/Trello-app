@@ -383,10 +383,6 @@ function bindingEvents(variable, type, taskIndex) {
   } else {return}
 }
 
-function removeModal(form) {
-  form.remove()
-}
-
 function deleteModal() {
   modal.close()
   modal.innerHTML = ''
@@ -395,6 +391,7 @@ function deleteModal() {
 addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     event.preventDefault();
+    deleteModal()
   }
 });
 
