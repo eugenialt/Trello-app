@@ -55,8 +55,11 @@ function createTaskCard(id, status, title, description, user) {
   const taskCard = document.createElement('div')
   taskCard.classList.add('column__task')
   taskCard.id = id
+  // new code 
   taskCard.user = user; 
   column.append(taskCard)
+
+  // new code 
   createTaskTitle(taskCard, id, title, description, user)
   updateTaskCounter()
 }
@@ -77,11 +80,13 @@ function createTaskTitle(taskCard, id, title, description, user) {
   const taskTitle = document.createElement('h3')
   taskTitle.classList.add('column__task-title')
   taskTitle.textContent = title;
-
+  
+  // new code 
   const userInfo = document.createElement('div');
   userInfo.classList.add('column__task-user');
   userInfo.textContent = user;
 
+  // new code 
   taskTitle.prepend(userInfo);
   taskCard.append(taskTitle);
   createTaskDescription(taskCard, id, description)
@@ -186,6 +191,7 @@ function createTask() {
   const tasks = getTasks()
   const modalAddTitle = document.getElementById('modal__input-title');
 
+  // new code 
   const userInfo = document.querySelector('.modal__select-user');
   const user = userInfo.value
 
@@ -195,7 +201,7 @@ function createTask() {
   const id = generateId(tasks)
   const status = 'todo'; 
 
-
+  // new code 
   const newTask = { id, status, title, description, user }
 
 
@@ -223,11 +229,14 @@ function editTask(taskIndex) {
 
   const newTitle = modalTitle.value
   const newDescription = modalDescription.value
+
+  // new code 
   const newUser = userInfo.value
 
   todos[taskIndex].title = newTitle
   todos[taskIndex].description = newDescription
 
+  // new code 
   todos[taskIndex].user = newUser
 
   setTasks(todos)
