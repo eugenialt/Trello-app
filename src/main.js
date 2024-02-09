@@ -46,17 +46,18 @@ function renderTask() {
   columnList.forEach((element) => {element.innerHTML = ''})
   // рендерим карточки в колонках
   const tasks = getTasks()
-  tasks.forEach(({ id, status, title, description }) => createTaskCard(id, status, title, description))
+  tasks.forEach(({ id, status, title, description, user }) => createTaskCard(id, status, title, description, user))
 }
 
 // Создание и добавление карточки задачи в соответствующую колонку
-function createTaskCard(id, status, title, description) {
+function createTaskCard(id, status, title, description, user) {
   const column = getColumnName(status)
   const taskCard = document.createElement('div')
   taskCard.classList.add('column__task')
   taskCard.id = id
+  taskCard.user = user; 
   column.append(taskCard)
-  createTaskTitle(taskCard, id, title, description)
+  createTaskTitle(taskCard, id, title, description, user)
   updateTaskCounter()
 }
 
@@ -72,11 +73,17 @@ function getColumnName(status) {
 }
 
 // Создание и добавление заголовка задачи
-function createTaskTitle(taskCard, id, title, description) {
+function createTaskTitle(taskCard, id, title, description, user) {
   const taskTitle = document.createElement('h3')
   taskTitle.classList.add('column__task-title')
-  taskTitle.textContent = title
-  taskCard.append(taskTitle)
+  taskTitle.textContent = title;
+
+  const userInfo = document.createElement('div');
+  userInfo.classList.add('column__task-user');
+  userInfo.textContent = user;
+
+  taskTitle.prepend(userInfo);
+  taskCard.append(taskTitle);
   createTaskDescription(taskCard, id, description)
 }
 
@@ -177,13 +184,21 @@ function searchById(tasks, searchId) {
 // Создание новой задачи
 function createTask() {
   const tasks = getTasks()
-  const modalAddTitle = document.getElementById('modal__input-title')
+  const modalAddTitle = document.getElementById('modal__input-title');
+
+  const userInfo = document.querySelector('.modal__select-user');
+  const user = userInfo.value
+
   const title = modalAddTitle.value
   const modalAddDescription = document.getElementById('modal__description')
   const description = modalAddDescription.value
   const id = generateId(tasks)
-  const status = 'todo'
-  const newTask = { id, status, title, description }
+  const status = 'todo'; 
+
+
+  const newTask = { id, status, title, description, user }
+
+
   tasks.push(newTask)
   localStorage.setItem('tasks', JSON.stringify(tasks))
   modalAddTitle.value =''
@@ -204,10 +219,17 @@ function editTask(taskIndex) {
   const todos = getTasks()
   const modalTitle = document.getElementById('modal__input-title')
   const modalDescription = document.getElementById('modal__description')
+  const userInfo = document.querySelector('.modal__select-user');
+
   const newTitle = modalTitle.value
   const newDescription = modalDescription.value
+  const newUser = userInfo.value
+
   todos[taskIndex].title = newTitle
   todos[taskIndex].description = newDescription
+
+  todos[taskIndex].user = newUser
+
   setTasks(todos)
   deleteModal()
   renderTask()
@@ -439,7 +461,7 @@ function populateUserEmails(selectUser) {
       console.error(error);
     });
 }
-
-
   // Рендеринг задач после загрузки страницы
 addEventListener('DOMContentLoaded', renderTask)
+
+

@@ -123,3 +123,9 @@ button {
   padding: 3px 0;
   gap: 4px;
 }
+
+
+.column__task-user { 
+  margin-bottom: 10px; 
+  font-size: 15px;
+}
