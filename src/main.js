@@ -306,8 +306,6 @@ function generateModal(type, description, taskIndex) {
     createModalWarning(type, description, taskIndex)
   } else if (type === 'questionProgress' || type === 'questionTodo' || type === 'questionDone') {
     createModalWarning(type, description, taskIndex)
-  } else if (type === 'confirmation') {
-    createModalWarning(type, description, taskIndex)
   } else {console.error('Type undefined:', type)}
 }
 
@@ -390,7 +388,6 @@ function generateModalButton(divControl, type, taskIndex) {
     divControl.append(buttonCancel, buttonConfirm)
   } else {
     const buttonOk = createModalButton('ok', 'modal__button-ok', 'button')
-    bindingEvents(buttonOk, type, taskIndex)
     divControl.append(buttonOk)
   } 
   
@@ -455,6 +452,7 @@ function controlModal() {
 // вешает нужные обрпботчики.
 function bindingEvents(variable, type, taskIndex) {
   if (type === 'createTask') {
+    variable.addEventListener('click', () => {checkingPresenceValue()})
     variable.addEventListener('click', () => {checkingPresenceValue(type, taskIndex)})
   } else if (type === 'editTask') {
     variable.addEventListener('click', () => {checkingPresenceValue(type, taskIndex)})
@@ -476,7 +474,6 @@ function bindingEvents(variable, type, taskIndex) {
     variable.addEventListener('click', () => {deleteConfirmation()})
   } else {return}
 }
-
 function checkingPresenceValue(type, taskIndex) {
   const title = document.getElementById('modal__input-title').value
   const description = document.getElementById('modal__description').value
@@ -491,19 +488,16 @@ function checkingPresenceValue(type, taskIndex) {
     deleteModal()
   }
 }
-
 function deleteConfirmation() {
   const modalWarning = document.getElementById('modal__warning')
   const form = document.getElementById('modal__task-form')
   modalWarning.parentNode.removeChild(modalWarning)
   form.style.display = 'block'
 }
-
 function deleteModal() {
   modal.close()
   modal.innerHTML = ''
 }
-
 addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     event.preventDefault();
