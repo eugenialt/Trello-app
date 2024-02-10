@@ -1,12 +1,65 @@
-:root {
+:root{
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --bg-color-body: #e1e1e1;
+  --bg-color-header:  rgb(149, 150, 153);
+  --box-shadow-header: 0px 0px 10px 2px rgb(164, 164, 164);
+  --bg-color-toggle: #d1d1d1; 
+  --bg-color-column-task: #ffffff;
 }
+
+:root[theme='dark']{
+    --bg-color-body: rgb(97, 111, 148);
+    --bg-color-header:  #5b6170;
+    --box-shadow-header: 0px 0px 10px 2px rgb(41, 41, 41);
+    --bg-color-toggle: rgb(41, 41, 41);
+    --bg-color-column-task: #6e7484;
+    --fill-color-icon: #ffffff;
+  }
+
+
+/*---------------------------------------------------------------------------*/
+/* шапка */
+.header{
+  background-color: var(--bg-color-header);
+  box-shadow: var(--box-shadow-header);
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  margin-bottom: 20px;
+  position: relative;
+}
+#clock{
+  color: rgb(225, 223, 223);
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 9px;
+}
+/*переключение темы*/
+#toggle_theme{
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-color_toggle);
+  border: 1px solid rgb(193, 192, 192);
+  box-shadow: 0px 0px 10px 2px rgb(168, 168, 168);
+  border-radius: 5px;
+  position: absolute;
+  right: 160px;
+  top: 23px;
+}
+.theme_icon{
+  fill: var(--fill-color-icon);
+}
+
+
+
+
 
 /* Основные стили для тела документа */
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--bg-color-body)
 }
 
 /* Главный контейнер */
@@ -56,7 +109,7 @@ button {
 
 /* Стили для блока задачи */
 .column__task {
-  background-color: #ffffff;
+  background-color: var(--bg-color-column-task);
   border: 1px solid #dddddd;
   box-shadow: 2px 2px 1px #dddddd;
   border-radius: 10px;
@@ -122,4 +175,10 @@ button {
   justify-content: right;
   padding: 3px 0;
   gap: 4px;
+}
+
+
+.column__task-user { 
+  margin-bottom: 10px; 
+  font-size: 12px;
 }

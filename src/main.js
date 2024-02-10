@@ -14,6 +14,59 @@ const counterDone = document.getElementById('column__counter-done')
 const containerWarning = document.getElementById('modal__warning-container')
 const deleteAllButton = document.getElementById('column__button-delete-all')
 
+//time
+const time = setInterval(currentTime, 0);
+function currentTime(){
+  let now = new Date();
+  const currentTime =  document.getElementById("clock");
+  currentTime.innerHTML = now.toLocaleTimeString();
+}
+
+
+
+//обработчик событий
+const toggleItem = document.getElementById('toggle_theme')
+toggleItem.addEventListener('click', toggleTheme)
+
+const getTheme = (theme) => {
+  return JSON.parse(localStorage.getItem(theme) ?? '[]')
+ }
+ 
+ const setTheme = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value))
+ }
+
+//функция переключения темы
+   
+  function toggleTheme(){
+    if(getTheme('theme') === 'dark'){
+    document.documentElement.setAttribute('theme', 'light');  
+    setTheme('theme', 'light')
+  }
+  else{
+    document.documentElement.setAttribute('theme', 'dark');
+    setTheme('theme', 'dark')
+  }
+
+}
+
+
+//toggle theme
+
+const init = () =>{
+  let theme = null
+  getTheme('theme').length > 0 ? theme = getTheme('theme') : theme = 'light'
+  document.documentElement.setAttribute('theme', `${theme}`)
+}
+init()
+
+
+
+
+
+
+
+
 // кнопка удаления, всех задачь.
 deleteAllButton.addEventListener('click', () => generateModal('questionDeleteAll', 'Delete all completed tasks?'))
 
@@ -44,17 +97,22 @@ function renderTask() {
   columnList.forEach((element) => {element.innerHTML = ''})
   // рендерим карточки в колонках.
   const tasks = getTasks()
-  tasks.forEach(({ id, status, title, description }) => createTaskCard(id, status, title, description))
+  tasks.forEach(({ id, status, title, description, user }) => createTaskCard(id, status, title, description, user))
 }
 
-// Создание и добавление карточки задачи в соответствующую колонку.
-function createTaskCard(id, status, title, description) {
+
+// Создание и добавление карточки задачи в соответствующую колонку
+function createTaskCard(id, status, title, description, user) {
   const column = getColumnName(status)
   const taskCard = document.createElement('div')
   taskCard.classList.add('column__task')
   taskCard.id = id
+  // new code 
+  taskCard.user = user; 
   column.append(taskCard)
-  createTaskTitle(taskCard, id, title, description)
+
+  // new code 
+  createTaskTitle(taskCard, id, title, description, user)
   updateTaskCounter()
 }
 
@@ -69,12 +127,21 @@ function getColumnName(status) {
   }
 }
 
-// Создание и добавление заголовка задачи.
-function createTaskTitle(taskCard, id, title, description) {
+
+// Создание и добавление заголовка задачи
+function createTaskTitle(taskCard, id, title, description, user) {
   const taskTitle = document.createElement('h3')
   taskTitle.classList.add('column__task-title')
-  taskTitle.textContent = title
-  taskCard.append(taskTitle)
+  taskTitle.textContent = title;
+  
+  // new code 
+  const userInfo = document.createElement('div');
+  userInfo.classList.add('column__task-user');
+  userInfo.textContent = user;
+
+  // new code 
+  taskTitle.prepend(userInfo);
+  taskCard.append(taskTitle);
   createTaskDescription(taskCard, id, description)
 }
 
@@ -175,13 +242,22 @@ function searchById(tasks, searchId) {
 // Создание новой задачи.
 function createTask() {
   const tasks = getTasks()
-  const modalAddTitle = document.getElementById('modal__input-title')
+  const modalAddTitle = document.getElementById('modal__input-title');
+
+  // new code 
+  const userInfo = document.querySelector('.modal__select-user');
+  const user = userInfo.value
+
   const title = modalAddTitle.value
   const modalAddDescription = document.getElementById('modal__description')
   const description = modalAddDescription.value
   const id = generateId(tasks)
-  const status = 'todo'
-  const newTask = { id, status, title, description }
+  const status = 'todo'; 
+
+  // new code 
+  const newTask = { id, status, title, description, user }
+
+
   tasks.push(newTask)
   localStorage.setItem('tasks', JSON.stringify(tasks))
   modalAddTitle.value =''
@@ -203,10 +279,20 @@ function editTask(taskIndex) {
   const todos = getTasks()
   const modalTitle = document.getElementById('modal__input-title')
   const modalDescription = document.getElementById('modal__description')
+  const userInfo = document.querySelector('.modal__select-user');
+
   const newTitle = modalTitle.value
   const newDescription = modalDescription.value
+
+  // new code 
+  const newUser = userInfo.value
+
   todos[taskIndex].title = newTitle
   todos[taskIndex].description = newDescription
+
+  // new code 
+  todos[taskIndex].user = newUser
+
   setTasks(todos)
   deleteModal()
   renderTask()
@@ -349,11 +435,13 @@ function createModalTextarea(type, taskIndex) {
   return textarea
 }
 
-// Создаёт селект меню пользователей, в модальном окне.
-function createModalSelect() {
-  const select = document.createElement('select')
-  select.classList.add('modal__select-user')
-  return select
+// Создаёт селект списка пользователей в модальном окне.
+function createModalSelect(selectId) {
+  const select = document.createElement('select');
+  select.classList.add('modal__select-user');
+  select.id = selectId;
+  populateUserEmails(select);
+  return select;
 }
 
 // управляет состоянием модального окна.
@@ -396,4 +484,34 @@ addEventListener('keydown', (event) => {
 });
 
 // Рендеринг задач после загрузки страницы
+
 addEventListener('DOMContentLoaded', renderTask)
+
+
+// получаем пользователей с сервера
+
+function populateUserEmails(selectUser) {
+  fetch('https://jsonplaceholder.typicode.com/comments?postId=1')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Не удалось получить данные пользователей');
+      }
+      return response.json();
+    })
+    .then(comments => {
+      const uniqueEmails = [...new Set(comments.map(comment => comment.email))];
+      uniqueEmails.forEach(email => {
+        const option = document.createElement('option');
+        option.value = email;
+        option.textContent = email;
+        selectUser.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+
+
+
+
