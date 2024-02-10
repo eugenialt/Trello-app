@@ -174,10 +174,18 @@ function createTaskControlItem(controlPanel, id) {
   }
 }
 
+// BUTTON ICONS
+
+const editIcon = '<?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>'
+const deleteIcon = '<svg viewBox="0 0 24 24" fill="none" height="15" width="15" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 11V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>'
+const moveIcon = '<svg fill="#000000" height="13" width="13" version="1.1" baseProfile="tiny" id="Layer_1" xmlns:x="&amp;ns_extend;" xmlns:i="&amp;ns_ai;" xmlns:graph="&amp;ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 42 42" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <polygon fill-rule="evenodd" points="11,38.32 28.609,21 11,3.68 13.72,1 34,21.01 13.72,41 "></polygon> </g></svg>'
+const cancelIcon = '<svg fill="#000000" style="transform: scaleX(-1);" height="13" width="13" version="1.1" baseProfile="tiny" id="Layer_1" xmlns:x="&amp;ns_extend;" xmlns:i="&amp;ns_ai;" xmlns:graph="&amp;ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 42 42" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <polygon fill-rule="evenodd" points="11,38.32 28.609,21 11,3.68 13.72,1 34,21.01 13.72,41 "></polygon> </g></svg>'
+const completeIcon = '<svg viewBox="0 0 20 20" height="15" width="15" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.3742 5.98559L10.3742 14.9856C9.72664 16.1511 7.97832 15.1798 8.62585 14.0143L13.6258 5.01431C14.2734 3.84876 16.0217 4.82005 15.3742 5.98559Z" fill="#000000"></path> <path d="M5.1247 9.71907L10.1247 13.7191C11.1659 14.552 9.91646 16.1137 8.87531 15.2808L3.87531 11.2808C2.83415 10.4479 4.08354 8.88615 5.1247 9.71907Z" fill="#000000"></path> </g></svg>'
+
 function controlPanelTodo(controlPanel, taskIndex) {
-  const buttonEdit = createButton('edit', 'column__task-button column__button-edit', 'button')
-  const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
-  const buttonSubmit = createButton('>', 'column__task-button column__button-submit', 'button')
+  const buttonEdit = createButton(editIcon, 'column__task-button column__button-edit', 'button')
+  const buttonDelete = createButton(deleteIcon, 'column__task-button column__button-delete', 'button')
+  const buttonSubmit = createButton(moveIcon, 'column__task-button column__button-submit', 'button')
   buttonEdit.addEventListener('click', () => generateModal('editTask', 'description', taskIndex))
   buttonDelete.addEventListener('click', () => generateModal('questionDelete', 'Delete task?', taskIndex))
   buttonSubmit.addEventListener('click', () => generateModal('questionProgress', 'start task?', taskIndex))
@@ -185,15 +193,15 @@ function controlPanelTodo(controlPanel, taskIndex) {
 }
 
 function controlPanelProgress(controlPanel, taskIndex) {
-  const buttonCancel = createButton('cancel', 'column__task-button column__button-cancel', 'button')
-  const buttonComplete = createButton('Complete', 'column__task-button column__button-complete', 'button')
+  const buttonCancel = createButton(cancelIcon, 'column__task-button column__button-cancel', 'button')
+  const buttonComplete = createButton(completeIcon, 'column__task-button column__button-complete', 'button')
   buttonCancel.addEventListener('click', () => generateModal('questionTodo', 'Cancel task execution?', taskIndex))
   buttonComplete.addEventListener('click', () => generateModal('questionDone', 'to perform the task?', taskIndex))
   controlPanel.append(buttonCancel, buttonComplete)
 }
 
 function controlPanelDone(controlPanel, taskIndex) {
-  const buttonDelete = createButton('delete', 'column__task-button column__button-delete', 'button')
+  const buttonDelete = createButton(deleteIcon, 'column__task-button column__button-delete', 'button')
   buttonDelete.addEventListener('click', () => generateModal('questionDelete', 'you are sure?', taskIndex))
   controlPanel.append(buttonDelete)
 }
@@ -218,7 +226,7 @@ function createButton(text, className, type) {
   const button = document.createElement('button')
   button.className = className
   button.type = type
-  button.textContent = text
+  button.innerHTML = text
   return button
 }
 

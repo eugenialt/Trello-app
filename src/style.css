@@ -144,9 +144,8 @@ button {
 }
 
 .column__task-description {
-  margin-bottom: 6px;
   word-wrap: break-word;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 #modal {
@@ -202,4 +201,26 @@ button {
 .column__task-user { 
   margin-bottom: 10px; 
   font-size: 12px;
+}
+
+.column__task-control { 
+
+  display: grid; 
+  grid-template-columns: repeat(8, 1fr);
+
+}
+
+.column__button-submit { 
+  grid-column: 8;
+}
+
+.column__task-button { 
+  padding: 0;
+  justify-self: start;
+  align-self: center; 
+}
+
+.column__button-complete { 
+  grid-column: 8;
+
 }
