@@ -1,6 +1,6 @@
 :root{
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --bg-color-body: #e1e1e1;
+  --bg-color-body: #3179BA;
   --bg-color-header:  rgb(149, 150, 153);
   --box-shadow-header: 0px 0px 10px 2px rgb(164, 164, 164);
   --bg-color-toggle: #d1d1d1; 
@@ -28,6 +28,7 @@
   padding: 25px;
   margin-bottom: 20px;
   position: relative;
+  background-color: #29669C; 
 }
 
 .clock-container { 
@@ -38,11 +39,14 @@
 
 
 }
-#clock{
+#clock {
   color: rgb(225, 223, 223);
   font-size: 25px;
   font-weight: 600;
+  width: 150px; 
+  text-align: end;
 }
+
 /*переключение темы*/
 #toggle_theme{
   width: 40px;
@@ -83,6 +87,9 @@ main {
 .column {
   width: 290px;
   height: 600px;
+  padding: 5px; 
+  background-color: #F1F2F4; 
+  border-radius: 10px;
 }
 
 /* Заголовок и содержимое колонок */
