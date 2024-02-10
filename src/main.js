@@ -452,9 +452,10 @@ function controlModal() {
 // вешает нужные обрпботчики.
 function bindingEvents(variable, type, taskIndex) {
   if (type === 'createTask') {
-    variable.addEventListener('click', () => {createTask(); deleteModal()})
+    variable.addEventListener('click', () => {checkingPresenceValue()})
+    variable.addEventListener('click', () => {checkingPresenceValue(type, taskIndex)})
   } else if (type === 'editTask') {
-    variable.addEventListener('click', () => {editTask(taskIndex); deleteModal()})
+    variable.addEventListener('click', () => {checkingPresenceValue(type, taskIndex)})
   } else if (type === 'questionDelete') {
     variable.addEventListener('click', () => {deleteModal(); deleteTask(taskIndex)})
   } else if (type === 'questionDeleteAll') {
@@ -468,14 +469,35 @@ function bindingEvents(variable, type, taskIndex) {
   } else if (type === 'questionDone') {
     const tasks = getTasks()
     variable.addEventListener('click', () => {deleteModal(); newTaskStatus(tasks, taskIndex, 'done')})
+  } else if (type === 'confirmation') {
+    const tasks = getTasks()
+    variable.addEventListener('click', () => {deleteConfirmation()})
   } else {return}
 }
-
+function checkingPresenceValue(type, taskIndex) {
+  const title = document.getElementById('modal__input-title').value
+  const description = document.getElementById('modal__description').value
+  if (description === '' || title === '') {
+    const form = document.getElementById('modal__task-form')
+    form.style.display = 'none'
+    generateModal('confirmation', 'Fill in each field')
+  } else {
+    if (type === 'createTask') {
+      createTask()
+    } else {editTask(taskIndex)}
+    deleteModal()
+  }
+}
+function deleteConfirmation() {
+  const modalWarning = document.getElementById('modal__warning')
+  const form = document.getElementById('modal__task-form')
+  modalWarning.parentNode.removeChild(modalWarning)
+  form.style.display = 'block'
+}
 function deleteModal() {
   modal.close()
   modal.innerHTML = ''
 }
-
 addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     event.preventDefault();
