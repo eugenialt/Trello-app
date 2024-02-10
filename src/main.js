@@ -519,19 +519,19 @@ addEventListener('DOMContentLoaded', renderTask)
 // получаем пользователей с сервера
 
 function populateUserEmails(selectUser) {
-  fetch('https://jsonplaceholder.typicode.com/comments?postId=1')
+  fetch('https://jsonplaceholder.typicode.com/users')
     .then(response => {
       if (!response.ok) {
         throw new Error('Не удалось получить данные пользователей');
       }
       return response.json();
     })
-    .then(comments => {
-      const uniqueEmails = [...new Set(comments.map(comment => comment.email))];
-      uniqueEmails.forEach(email => {
+    .then(users => {
+      const uniqueEmails = [...new Set(users.map(users => users.name))];
+      uniqueEmails.forEach(name => {
         const option = document.createElement('option');
-        option.value = email;
-        option.textContent = email;
+        option.value = name;
+        option.textContent = name;
         selectUser.appendChild(option);
       });
     })
