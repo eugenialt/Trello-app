@@ -455,7 +455,7 @@ function controlModal() {
 // вешает нужные обрпботчики.
 function bindingEvents(variable, type, taskIndex) {
   if (type === 'createTask') {
-    variable.addEventListener('click', () => {checkingPresenceValue()})
+    variable.addEventListener('click', () => {checkingPresenceValue(type, taskIndex)})
   } else if (type === 'editTask') {
     variable.addEventListener('click', () => {checkingPresenceValue(type, taskIndex)})
   } else if (type === 'questionDelete') {
