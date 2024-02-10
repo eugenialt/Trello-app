@@ -87,7 +87,7 @@ main {
 .column {
   width: 290px;
   height: 600px;
-  padding: 5px; 
+  padding: 10px; 
   background-color: #F1F2F4; 
   border-radius: 10px;
 }
@@ -98,6 +98,10 @@ main {
   justify-content: space-between;
   margin-bottom: 5px;
   padding: 5px; 
+}
+
+.column__title { 
+  font-weight: 600;
 }
 
 /* Список внутри колонки */
