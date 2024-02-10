@@ -130,13 +130,17 @@ button {
 
 #modal {
   position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100vw;
   height: 100vh;
   background-color: transparent;
   border: 0;
+}
+
+#modal:modal { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 #modal__task-form,
