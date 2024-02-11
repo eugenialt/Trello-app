@@ -1,20 +1,33 @@
 :root{
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --bg-color-body: #e1e1e1;
-  --bg-color-header:  rgb(149, 150, 153);
-  --box-shadow-header: 0px 0px 10px 2px rgb(164, 164, 164);
+  --bg-color-body: #3179BA;
+  --bg-color-header:  #29669C;
+  --box-shadow-header: 0px 0px 2px 1px rgb(164, 164, 164);
   --bg-color-toggle: #d1d1d1; 
-  --bg-color-column-task: #ffffff;
+  --bg-color-column-todo: #ffffff;
+  --bg-color-modal: #ffffff;
+  --bg-color-modal-btn:#f1f2f4;
+  --color-modal-btn: #000000;
+  --color-modal-title: #000000;
 }
 
-:root[theme='dark']{
-    --bg-color-body: rgb(97, 111, 148);
-    --bg-color-header:  #5b6170;
-    --box-shadow-header: 0px 0px 10px 2px rgb(41, 41, 41);
-    --bg-color-toggle: rgb(41, 41, 41);
-    --bg-color-column-task: #6e7484;
-    --fill-color-icon: #ffffff;
-  }
+:root[theme='dark'] {
+  --bg-color-body: #1a1818;
+  --bg-color-text: #ffffff;
+  --bg-size-body: 100000% 100000%;
+  --bg-color-header: #5b6170;
+  --box-shadow-header: 0px 0px 10px 2px rgb(41, 41, 41);
+  --bg-color-toggle: rgb(41, 41, 41);
+  --bg-color-column-task: #151718;
+  --fill-color-icon: #ffffff;
+  --bg-color-column-todo: #000000;
+  --bg-color-button: white;
+  --bg-color-modal: #131516;
+  --bg-color-modal-btn:#24242b;
+  --color-modal-btn: #e6dbdb;
+  --color-modal-title: white;
+  --bg-color-modal-input: rgb(50 53 65);
+}
 
 
 /*---------------------------------------------------------------------------*/
@@ -24,30 +37,42 @@
   box-shadow: var(--box-shadow-header);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 25px;
   margin-bottom: 20px;
-  position: relative;
+  position: relative; 
 }
-#clock{
+
+.clock-container { 
+
+  display: flex;
+  gap: 10px; 
+  align-items: center;
+
+
+}
+#clock {
   color: rgb(225, 223, 223);
   font-size: 25px;
   font-weight: 600;
-  margin-top: 9px;
+  width: 150px; 
+  text-align: end;
 }
+
 /*переключение темы*/
 #toggle_theme{
   width: 40px;
   height: 40px;
   background-color: var(--bg-color_toggle);
   border: 1px solid rgb(193, 192, 192);
-  box-shadow: 0px 0px 10px 2px rgb(168, 168, 168);
+  box-shadow: 0px 0px 3px 2px rgb(168, 168, 168);
   border-radius: 5px;
-  position: absolute;
-  right: 160px;
-  top: 23px;
 }
+
 .theme_icon{
   fill: var(--fill-color-icon);
+  height: 100%; 
+  width: 100%;
 }
 
 
@@ -59,9 +84,29 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--bg-color-body)
+  background-color: #3179BA;
 }
 
+@-webkit-keyframes ServiceAnimation{0%
+  {background-position:90% 0}50%
+  {background-position:10% 100%}100%
+  {background-position:90% 0}
+}
+@-moz-keyframes ServiceAnimation{0%
+  {background-position:90% 0}50%
+  {background-position:10% 100%}100%
+  {background-position:90% 0}
+}
+@-o-keyframes ServiceAnimation{0%
+  {background-position:90% 0}50%
+  {background-position:10% 100%}100%
+  {background-position:90% 0}
+}
+@keyframes ServiceAnimation{0%
+  {background-position:90% 0}50%
+  {background-position:10% 100%}100%
+  {background-position:90% 0}
+}
 /* Главный контейнер */
 main {
   display: flex;
@@ -74,6 +119,10 @@ main {
 /* Стили для колонок */
 .column {
   width: 290px;
+  height: 600px;
+  padding: 10px; 
+  background-color: #F1F2F4; 
+  border-radius: 10px;
 }
 
 /* Заголовок и содержимое колонок */
@@ -81,6 +130,11 @@ main {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
+  padding: 5px; 
+}
+
+.column__title { 
+  font-weight: 600;
 }
 
 /* Список внутри колонки */
@@ -102,6 +156,7 @@ main {
 
 /* Стили для кнопок без стилей */
 button {
+  color: var(--bg-color-button);
   background-color: transparent;
   padding: 3px;
   border: 0;
@@ -123,9 +178,8 @@ button {
 }
 
 .column__task-description {
-  margin-bottom: 6px;
   word-wrap: break-word;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 #modal {
@@ -145,24 +199,58 @@ button {
 
 #modal__task-form,
 #modal__warning {
+  background-color: var(--bg-color-modal);
+  border: 2px solid white;
+  border-radius: 5px;
   padding: 17px;
-  background-color: #ffffff;
   border-radius: 5px;
 }
 
 .modal__input-container,
 .modal__textarea-container {
-  margin-bottom: 10px;
+  margin-bottom: 10px;  
 }
 
 #modal__input-title {
+  background-color: var(--bg-color-modal-input);
   padding: 5px 8px;
 }
 
 #modal__description {
+  background-color: var(--bg-color-modal-input);
   width: 300px;
   height: 140px;
   padding: 8px;
+}
+.modal__title {
+  color: var(--color-modal-title);
+  padding-bottom: 7px;
+}
+
+#modal__button-cancel , #modal__button-confirm {
+  background-color: var(--bg-color-modal-btn);
+  border: 0;
+  border-color: transparent;
+  font-weight: 300;
+  cursor: pointer;
+  position: relative;
+  font-size: 13px;
+  font-family: inherit;
+  overflow: hidden;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.18), 0 1px 5px 0 rgba(0,0,0,0.15);
+  color: var(--color-modal-btn);
+  text-transform: uppercase;
+  transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+  transform: translate3d(0, 0, 0);
+}
+
+
+#modal__button-cancel:hover, #modal__button-confirm:hover {
+background-color: transparent;
+color: rgb(125, 127, 129);
+box-shadow: 0 5px 11px 0 rgba(7, 42, 238, 0.726), 0 4px 15px 0 rgba(0,0,0,.15);
+transition: box-shadow .4s ease-out
 }
 
 .modal__footer {
@@ -171,6 +259,7 @@ button {
 }
 
 .modal__select-user {
+  background-color: var(--bg-color-modal-input);
   width: 170px;
 }
 
@@ -181,8 +270,36 @@ button {
   gap: 4px;
 }
 
+.column.column-todo ,.column.column-done,.column.column-progress {
+  background-color: var(--bg-color-column-todo);
+  color: var(--bg-color-text);
+}
 
 .column__task-user { 
   margin-bottom: 10px; 
   font-size: 12px;
+}
+
+.column__task-control { 
+  display: grid; 
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.column__button-submit { 
+  grid-column: 8;
+}
+
+.column__task-button { 
+  padding: 0;
+  justify-self: start;
+  align-self: center; 
+}
+
+.column__button-edit , .column__button-delete , .column__button-submit, .column__button-complete, .column__button-cancel  {
+  fill: var(--fill-color-icon);
+  stroke: #ffffff;
+}
+.column__button-complete { 
+  grid-column: 8;
+
 }
