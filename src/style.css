@@ -68,12 +68,12 @@ main {
   justify-content: center;
   padding: 10px;
   gap: 40px;
+  background-color: var(--bg-color-body)
 }
 
 /* Стили для колонок */
 .column {
   width: 290px;
-  height: 600px;
 }
 
 /* Заголовок и содержимое колонок */
