@@ -113,7 +113,7 @@ main {
   justify-content: center;
   padding: 10px;
   gap: 40px;
-  background-color: var(--bg-color-body)
+  /* background-color: var(--bg-color-body) */
 }
 
 /* Стили для колонок */
