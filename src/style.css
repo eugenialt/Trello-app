@@ -1,7 +1,7 @@
 :root{
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --bg-color-body: #3179BA;
-  --bg-color-header:  rgb(149, 150, 153);
+  --bg-color-header:  #29669C;
   --box-shadow-header: 0px 0px 2px 1px rgb(164, 164, 164);
   --bg-color-toggle: #d1d1d1; 
   --bg-color-column-todo: #ffffff;
@@ -40,8 +40,7 @@
   align-items: center;
   padding: 25px;
   margin-bottom: 20px;
-  position: relative;
-  background-color: #29669C; 
+  position: relative; 
 }
 
 .clock-container { 
