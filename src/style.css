@@ -239,7 +239,7 @@ button {
 
 #modal__description {
   background-color: var(--bg-color-modal-input);
-  width: 300px;
+  width: 315px;
   height: 140px;
   padding: 8px;
 }
