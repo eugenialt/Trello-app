@@ -56,19 +56,19 @@ const getTheme = (theme) => {
     if(getTheme('theme') === 'dark'){
     document.documentElement.setAttribute('theme', 'light');  
     setTheme('theme', 'light')
-    styleLightTema()
+    styleLightTheme()
     changeIconColor('light', deleteIcon);
   }
   else{
     document.documentElement.setAttribute('theme', 'dark');
     setTheme('theme', 'dark')
-    styleDarkThema()
+    styleDarkTheme()
     changeIconColor('dark', deleteIcon);
   }
 
 }
 
-function styleLightTema (){
+function styleLightTheme (){
 
   document.body.style.backgroundSize = 'auto';
   document.body.style.webkitAnimation = 'none';
@@ -77,7 +77,7 @@ function styleLightTema (){
   document.body.style.animation = 'none';
 }
 
-function styleDarkThema (){
+function styleDarkTheme (){
   document.body.style.background = 'linear-gradient(2000deg, rgb(32 32 37), rgb(24 21 21), rgb(55 56 57), rgb(29 28 30)))';
   document.body.style.backgroundSize = '100000% 100000%';
   document.body.style.webkitAnimation = 'ServiceAnimation 10s ease infinite';
