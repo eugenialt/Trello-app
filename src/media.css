@@ -60,7 +60,7 @@
     margin-bottom: 20px;
     width: 100%;
     height:100%; 
-    
+
   }
   .column__title,
   #column__counter-todo{
@@ -105,4 +105,11 @@
     display: none;
   }
 
+  .column__button-submit { 
+
+    justify-self: end;
+  
+  }
+
 }
+
