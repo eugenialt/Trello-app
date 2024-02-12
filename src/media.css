@@ -8,14 +8,10 @@
   #toggle_theme{
     width: 35px;
     height: 35px;
-    right: 127px;
-    top: 19px;
   }
   .theme_icon{
     width: 25px;
     height: 25px;
-    right: 127px;
-    top: 21px;
   }
   .logo{
     width: 110px;
@@ -98,8 +94,6 @@
   #toggle_theme{
     width: 30px;
     height: 30px;
-    top: 13px;
-    right: 23px;
   }
   .theme_icon{
     width: 20px;
