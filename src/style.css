@@ -329,5 +329,4 @@ transition: box-shadow .4s ease-out
 }
 .column__button-complete { 
   grid-column: 8;
-
 }
