@@ -104,6 +104,7 @@ function removeAllItems() {
   const updatedTasks = tasks.filter(task => task.status !== 'done')
   setTasks(updatedTasks)
   renderTask()
+  updateTaskCounter()
 }
 
 
