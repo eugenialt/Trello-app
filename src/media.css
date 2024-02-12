@@ -39,19 +39,49 @@
   .header{
     margin-bottom: 10px;
   }
+  .column__title,
+  #column__counter-todo{
+    font-size: 20px;
+  }
+  .column__task-description {
+    font-size: 16px;
+  }
+  .column__task-title{
+    font-size: 18px;
+  }
+  button{
+    font-size: 14px;
+  }
 }
 
 
 
 @media(max-width: 755px){
-  main{
-    flex-wrap: wrap;
-  }
    main{
     gap: 10px;
   }
   .column{
     margin-bottom: 20px;
+    width: 210px;
+  }
+  .column__title,
+  #column__counter-todo{
+    font-size: 18px;
+  }
+  .column__task-description {
+    font-size: 14px;
+  }
+  .column__task-title{
+    font-size: 16px;
+  }
+  button{
+    font-size: 12px;
+  }
+}
+
+@media(max-width: 615px){
+  main{
+    flex-wrap: wrap;
   }
 }
 

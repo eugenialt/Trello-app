@@ -1,5 +1,5 @@
 :root{
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+   font-family: 'Raleway', sans-serif;
   --bg-color-body: #3179BA;
   --bg-color-header:  #29669C;
   --box-shadow-header: 0px 0px 2px 1px rgb(164, 164, 164);
@@ -47,7 +47,6 @@
 }
 
 .clock-container { 
-
   display: flex;
   gap: 10px; 
   align-items: center;
@@ -60,6 +59,7 @@
   font-weight: 600;
   width: 150px; 
   text-align: end;
+  font-family: 'Open Sans', sans-serif;
 }
 
 /*переключение темы*/
@@ -121,6 +121,7 @@ main {
   justify-content: center;
   padding: 10px;
   gap: 40px;
+  font-size: 20px;
 }
 
 /* Стили для колонок */
@@ -141,7 +142,7 @@ main {
 }
 
 .column__title { 
-  font-weight: 600;
+  font-size: 25px;
 }
 
 /* Список внутри колонки */
@@ -167,6 +168,7 @@ button {
   background-color: transparent;
   padding: 3px;
   border: 0;
+  font-size: 16px;
 }
 
 /* Стили для блока задачи */
@@ -180,13 +182,14 @@ button {
 
 /* Заголовок и описание задачи в колонке */
 .column__task-title {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 8px;
 }
 
 .column__task-description {
   word-wrap: break-word;
   margin-bottom: 10px;
+  font-size: 18px;
 }
 
 #modal {
@@ -285,7 +288,7 @@ transition: box-shadow .4s ease-out
 
 .column__task-user { 
   margin-bottom: 10px; 
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .column__task-control { 
