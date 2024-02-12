@@ -139,10 +139,13 @@ main {
   justify-content: space-between;
   margin-bottom: 5px;
   padding: 5px; 
+  font-weight: 600;
 }
 
 .column__title { 
   font-size: 25px;
+  font-weight: 600;
+
 }
 
 /* Список внутри колонки */
