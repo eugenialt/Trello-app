@@ -228,7 +228,7 @@ function controlPanelTodo(controlPanel, taskIndex) {
   const buttonSubmit = createButton(moveIcon, 'column__task-button column__button-submit', 'button')
   buttonEdit.addEventListener('click', () => generateModal('editTask', 'description', taskIndex))
   buttonDelete.addEventListener('click', () => generateModal('questionDelete', 'Delete task?', taskIndex))
-  buttonSubmit.addEventListener('click', () => generateModal('questionProgress', 'start task?', taskIndex))
+  buttonSubmit.addEventListener('click', () => generateModal('questionProgress', 'Start the task?', taskIndex))
   controlPanel.append(buttonEdit, buttonDelete, buttonSubmit)
 }
 
@@ -236,13 +236,13 @@ function controlPanelProgress(controlPanel, taskIndex) {
   const buttonCancel = createButton(cancelIcon, 'column__task-button column__button-cancel', 'button')
   const buttonComplete = createButton(completeIcon, 'column__task-button column__button-complete', 'button')
   buttonCancel.addEventListener('click', () => generateModal('questionTodo', 'Cancel task execution?', taskIndex))
-  buttonComplete.addEventListener('click', () => generateModal('questionDone', 'to perform the task?', taskIndex))
+  buttonComplete.addEventListener('click', () => generateModal('questionDone', 'Complete the task?', taskIndex))
   controlPanel.append(buttonCancel, buttonComplete)
 }
 
 function controlPanelDone(controlPanel, taskIndex) {
   const buttonDelete = createButton(deleteIcon, 'column__task-button column__button-delete', 'button')
-  buttonDelete.addEventListener('click', () => generateModal('questionDelete', 'you are sure?', taskIndex))
+  buttonDelete.addEventListener('click', () => generateModal('questionDelete', 'Are you sure?', taskIndex))
   controlPanel.append(buttonDelete)
 }
 
