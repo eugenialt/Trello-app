@@ -39,8 +39,8 @@ function currentTime(){
 // MODULE__THEME 
 
 //обработчик событий
-const toggleItem = document.getElementById('toggle_theme')
-toggleItem.addEventListener('click', toggleTheme)
+const toggleThemeButton = document.getElementById('toggle_theme')
+toggleThemeButton.addEventListener('click', toggleTheme)
 
 const getTheme = (theme) => {
   return JSON.parse(localStorage.getItem(theme) ?? '[]')
@@ -251,6 +251,7 @@ function newTaskStatus(tasks, tasksIndex, newStatus) {
   tasks[tasksIndex].status = newStatus
   setTasks(tasks)
   renderTask()
+  
 }
 
 // Создание кнопки с указанными параметрами.
@@ -268,6 +269,7 @@ function deleteTask(taskIndex) {
   tasks.splice(taskIndex, 1)
   setTasks(tasks)
   renderTask()
+  updateTaskCounter()
 }
 
 // Поиск индекса задачи по ID.
