@@ -11,6 +11,7 @@
   --color-modal-title: #000000;
   --bg-color-modal-input: rgb(189 192 205);
   --border-modal: 2px solid var(--bg-color-body);
+  --fill-color-icon: #252B42; 
 }
 
 :root[theme='dark'] {
@@ -332,6 +333,8 @@ transition: box-shadow .4s ease-out
 .column__button-complete { 
   grid-column: 8;
 }
+
+
 
 .column__button-delete:hover { 
 
