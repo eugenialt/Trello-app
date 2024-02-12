@@ -332,3 +332,8 @@ transition: box-shadow .4s ease-out
 .column__button-complete { 
   grid-column: 8;
 }
+
+.column__button-delete:hover { 
+
+  fill: rgba(255, 0, 0, 0.637); 
+}
