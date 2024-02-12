@@ -57,13 +57,13 @@ const getTheme = (theme) => {
     document.documentElement.setAttribute('theme', 'light');  
     setTheme('theme', 'light')
     styleLightTheme()
-    changeIconColor('light', deleteIcon);
+
   }
   else{
     document.documentElement.setAttribute('theme', 'dark');
     setTheme('theme', 'dark')
     styleDarkTheme()
-    changeIconColor('dark', deleteIcon);
+
   }
 
 }
@@ -85,14 +85,6 @@ function styleDarkTheme (){
   document.body.style.oAnimation = 'ServiceAnimation 10s ease infinite';
   document.body.style.animation = 'ServiceAnimation 10s ease infinite';
 
-}
-
-function changeIconColor(theme, icon){
-  if(theme === 'light'){
-      icon.style.color = 'black';
-  } else {
-      icon.style.color = 'white';
-  }
 }
 
 //toggle theme
