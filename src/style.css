@@ -5,17 +5,19 @@
   --box-shadow-header: 0px 0px 2px 1px rgb(164, 164, 164);
   --bg-color-toggle: #d1d1d1; 
   --bg-color-column-todo: #ffffff;
-  --bg-color-modal: #ffffff;
+  --bg-color-modal:#dfdfe1;
   --bg-color-modal-btn:#f1f2f4;
   --color-modal-btn: #000000;
   --color-modal-title: #000000;
+  --bg-color-modal-input: rgb(189 192 205);
+  --border-modal: 2px solid #848bc1;
 }
 
 :root[theme='dark'] {
-  --bg-color-body: #1a1818;
+  --bg-color-body: linear-gradient( rgb(32 32 37), rgb(24 21 21), rgb(55 56 57), rgb(29 28 30));
   --bg-color-text: #ffffff;
   --bg-size-body: 100000% 100000%;
-  --bg-color-header: #5b6170;
+  --bg-color-header: #111112;
   --box-shadow-header: 0px 0px 10px 2px rgb(41, 41, 41);
   --bg-color-toggle: rgb(41, 41, 41);
   --bg-color-column-task: #151718;
@@ -27,6 +29,7 @@
   --color-modal-btn: #e6dbdb;
   --color-modal-title: white;
   --bg-color-modal-input: rgb(50 53 65);
+  --border-modal: 2px solid #ffffff;
 }
 
 
@@ -81,10 +84,15 @@
 
 /* Основные стили для тела документа */
 body {
+  background: var(--bg-color-body);
+    background-size: 100000% 100000%;
+    -webkit-animation: ServiceAnimation 10s ease infinite;
+    -moz-animation: ServiceAnimation 10s ease infinite;
+    -o-animation: ServiceAnimation 10s ease infinite;
+    animation: ServiceAnimation 10s ease infinite;
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #3179BA;
 }
 
 @-webkit-keyframes ServiceAnimation{0%
@@ -199,9 +207,11 @@ button {
 #modal__task-form,
 #modal__warning {
   background-color: var(--bg-color-modal);
-  border: 2px solid white;
-  border-radius: 5px;
-  padding: 17px;
+  border: var(--border-modal);
+  -webkit-box-shadow: 4px 1px 13px 4px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 4px 1px 13px 4px rgba(34, 60, 80, 0.2);
+  box-shadow: 4px 1px 13px 4px rgba(34, 60, 80, 0.2);
+  padding: 30px;
   border-radius: 5px;
 }
 
@@ -239,7 +249,6 @@ button {
   border-radius: 7px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.18), 0 1px 5px 0 rgba(0,0,0,0.15);
   color: var(--color-modal-btn);
-  text-transform: uppercase;
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
   transform: translate3d(0, 0, 0);
 }
@@ -254,7 +263,7 @@ transition: box-shadow .4s ease-out
 
 .modal__footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .modal__select-user {
@@ -265,7 +274,7 @@ transition: box-shadow .4s ease-out
 .modal__control-container {
   display: flex;
   justify-content: right;
-  padding: 3px 0;
+  padding: 3px 9px;
   gap: 4px;
 }
 
