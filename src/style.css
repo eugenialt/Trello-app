@@ -186,7 +186,8 @@ button {
 /* Заголовок и описание задачи в колонке */
 .column__task-title {
   font-size: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  font-weight: 600; 
 }
 
 .column__task-description {
@@ -303,7 +304,7 @@ transition: box-shadow .4s ease-out
 
 .column__task-user { 
   margin-bottom: 10px; 
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .column__task-control { 
