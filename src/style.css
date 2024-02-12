@@ -261,6 +261,7 @@ button {
 
 #modal__button-cancel , #modal__button-confirm {
   background-color: var(--bg-color-modal-btn);
+  padding: 4px;
   margin: 0 2px;
   border: 0;
   border-color: transparent;
