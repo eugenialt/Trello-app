@@ -231,6 +231,7 @@ button {
 #modal__input-title {
   background-color: var(--bg-color-modal-input);
   padding: 5px 8px;
+  border: 1px solid #767676;
 }
 
 #modal__description {
