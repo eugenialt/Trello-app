@@ -183,7 +183,7 @@ function createTaskTitle(taskCard, id, title, description, user) {
   userInfo.textContent = user;
 
   // new code 
-  taskTitle.prepend(userInfo);
+  taskCard.append(userInfo);
   taskCard.append(taskTitle);
   createTaskDescription(taskCard, id, description)
 }
