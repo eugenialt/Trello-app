@@ -236,7 +236,8 @@ button {
 }
 .modal__title {
   color: var(--color-modal-title);
-  padding-bottom: 7px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 #modal__button-cancel , #modal__button-confirm {
