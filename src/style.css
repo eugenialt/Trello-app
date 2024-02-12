@@ -1,6 +1,6 @@
 :root{
    font-family: 'Raleway', sans-serif;
-  --bg-color-body: #3179BA;
+  --bg-color-body: linear-gradient( rgb(223 231 235), rgb(196 201 213), rgb(225 228 245), #3179BA);
   --bg-color-header:  #29669C;
   --box-shadow-header: 0px 0px 2px 1px rgb(164, 164, 164);
   --bg-color-toggle: #d1d1d1; 
@@ -10,9 +10,11 @@
   --color-modal-btn: #000000;
   --color-modal-title: #000000;
   --bg-color-modal-input: rgb(189 192 205);
-  --border-modal: 2px solid var(--bg-color-body);
+  --border-modal: 2px solid #3179BA; 
   --fill-color-icon: #252B42; 
 }
+
+
 
 :root[theme='dark'] {
   --bg-color-body: linear-gradient( rgb(32 32 37), rgb(24 21 21), rgb(55 56 57), rgb(29 28 30));
