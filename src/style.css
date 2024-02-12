@@ -57,7 +57,7 @@
   color: rgb(225, 223, 223);
   font-size: 25px;
   font-weight: 600;
-  width: 150px; 
+  margin-right: 15px; 
   text-align: end;
   font-family: 'Open Sans', sans-serif;
 }
@@ -302,7 +302,9 @@ transition: box-shadow .4s ease-out
   background-color: var(--bg-color-column-todo);
   color: var(--bg-color-text);
 }
-
+.column.column-progress{
+  padding-bottom: 31px;
+}
 .column__task-user { 
   margin-bottom: 10px; 
   font-size: 14px;
@@ -329,5 +331,4 @@ transition: box-shadow .4s ease-out
 }
 .column__button-complete { 
   grid-column: 8;
-
 }
