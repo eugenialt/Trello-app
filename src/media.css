@@ -113,3 +113,14 @@
 
 }
 
+@media(max-width: 400px){
+  #modal__task-form{
+    width: 75vh;
+  }
+  #modal__description{
+    width: 100%;
+  }
+  .modal__select-user {
+    width: 100%;
+  }
+}
