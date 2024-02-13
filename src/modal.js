@@ -1,3 +1,13 @@
+import { buttonAdd, modal, deleteAllButton } from "./components.js"
+
+import { getTasks } from "./localStorage.js"
+
+import { renderTask } from "./rendering.js"
+
+import { newTaskStatus, deleteTask } from "./renderOperations.js"
+
+import { createTask, editTask, removeAllItems } from "./tasks.js"
+
 // Собирает модальное окно по типу.
 export function generateModal(type, description, taskIndex) {
     if (type === 'createTask' || type === 'editTask') {
@@ -205,7 +215,7 @@ function deleteConfirmation() {
     form.style.display = 'block'
 }
   
-function deleteModal() {
+export function deleteModal() {
     modal.close()
     modal.innerHTML = ''
 }

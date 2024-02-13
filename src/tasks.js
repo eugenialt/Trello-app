@@ -1,3 +1,8 @@
+import { getTasks, setTasks } from "./localStorage.js"
+import { renderTask } from "./rendering.js"
+import { deleteModal } from "./modal.js";
+import { updateTaskCounter } from "./renderOperations.js"
+
 // Создание новой задачи.
 export function createTask() {
     const tasks = getTasks()
@@ -55,3 +60,11 @@ export function editTask(taskIndex) {
     deleteModal()
     renderTask()
 }
+
+export function removeAllItems() {
+    const tasks = getTasks()
+    const updatedTasks = tasks.filter(task => task.status !== 'done')
+    setTasks(updatedTasks)
+    renderTask()
+    updateTaskCounter()
+  }

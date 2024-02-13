@@ -1,4 +1,4 @@
-import { generateModal } from "./main.js"
+import { generateModal } from "./modal.js"
 
 import { taskListTodo, taskListProgress, taskListDone } from "./components.js"
 import { counterTodo, counterProgress, counterDone } from "./components.js"

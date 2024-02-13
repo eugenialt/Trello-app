@@ -11,18 +11,3 @@ import { newTaskStatus, updateTaskCounter, deleteTask } from "./renderOperations
 import "./clock.js"
 
 import "./theme.js"
-
-function removeAllItems() {
-  const tasks = getTasks()
-  const updatedTasks = tasks.filter(task => task.status !== 'done')
-  setTasks(updatedTasks)
-  renderTask()
-  updateTaskCounter()
-}
-
-// MODULE__MODAL-WINDOWS
-
-
-
-
-
