@@ -2,11 +2,11 @@ import { buttonAdd, modal, taskListTodo, taskListProgress, taskListDone } from "
 import { counterTodo, counterProgress, counterDone, deleteAllButton } from "./ui/components.js"
 import { editIcon, deleteIcon, moveIcon, cancelIcon, completeIcon } from "./ui/components.js"
 
-import { getTasks, setTasks } from "../localStorage.js"
+import { getTasks, setTasks } from "../script/localStorage.js"
 
-import { renderTask } from "../rendering.js"
+import { renderTask } from "../script/rendering.js"
 
-import { newTaskStatus, updateTaskCounter, deleteTask } from "../renderOperations.js"
+import { newTaskStatus, updateTaskCounter, deleteTask } from "../script/renderOperations.js"
 
 import "./ui/clock.js"
 

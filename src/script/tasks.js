@@ -1,6 +1,6 @@
 import { getTasks, setTasks } from "./localStorage.js"
 import { renderTask } from "./rendering.js"
-import { deleteModal } from "./modal.js";
+import { deleteModal } from "./ui/modal.js";
 import { updateTaskCounter } from "./renderOperations.js"
 
 // Создание новой задачи.

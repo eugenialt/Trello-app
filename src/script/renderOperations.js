@@ -1,8 +1,8 @@
-import { generateModal } from "./modal.js"
+import { generateModal } from "./ui/modal.js"
 
-import { taskListTodo, taskListProgress, taskListDone } from "./script/ui/components.js"
-import { counterTodo, counterProgress, counterDone } from "./script/ui/components.js"
-import { editIcon, deleteIcon, moveIcon, cancelIcon, completeIcon } from "./script/ui/components.js"
+import { taskListTodo, taskListProgress, taskListDone } from "./ui/components.js"
+import { counterTodo, counterProgress, counterDone } from "./ui/components.js"
+import { editIcon, deleteIcon, moveIcon, cancelIcon, completeIcon } from "./ui/components.js"
 
 import { getTasks, setTasks } from "./localStorage.js"
 
