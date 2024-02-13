@@ -1,8 +1,10 @@
 import { buttonAdd, modal, taskListTodo, taskListProgress, taskListDone } from "./components.js"
-import { columnList, counterTodo, counterProgress, counterDone, deleteAllButton } from "./components.js"
+import { counterTodo, counterProgress, counterDone, deleteAllButton } from "./components.js"
 import { editIcon, deleteIcon, moveIcon, cancelIcon, completeIcon } from "./components.js"
 
 import { getTasks, setTasks } from "./localStorage.js"
+
+import { renderTask } from "./rendering.js"
 
 import "./clock.js"
 
@@ -16,23 +18,10 @@ function removeAllItems() {
   updateTaskCounter()
 }
 
-
-//  MODULE__RENDERING
-
-// Рендеринг карточек задач.
-function renderTask() {
-  // Очищаем содержимое колонок.
-  columnList.forEach((element) => {element.innerHTML = ''})
-  // рендерим карточки в колонках.
-  const tasks = getTasks()
-  tasks.forEach(({ id, status, title, description, user }) => createTaskCard(id, status, title, description, user))
-}
-
-
 // MODULE__OPERATIONS
 
 // Создание и добавление карточки задачи в соответствующую колонку
-function createTaskCard(id, status, title, description, user) {
+export function createTaskCard(id, status, title, description, user) {
   const column = getColumnName(status)
   const taskCard = document.createElement('div')
   taskCard.classList.add('column__task')
