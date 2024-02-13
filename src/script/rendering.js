@@ -1,4 +1,4 @@
-import { columnList} from "./components.js"
+import { columnList} from "./ui/components.js"
 import { getTasks} from "./localStorage.js"
 import { createTaskCard } from "./renderOperations.js"
 
