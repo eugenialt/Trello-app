@@ -4,16 +4,7 @@ import { editIcon, deleteIcon, moveIcon, cancelIcon, completeIcon } from "./comp
 
 import { getTasks, setTasks } from "./localStorage.js"
 
-// MODULE__CLOCK
-
-// time
-const time = setInterval(currentTime, 0);
-function currentTime(){
-  let now = new Date();
-  const currentTime =  document.getElementById("clock");
-  currentTime.innerHTML = now.toLocaleTimeString();
-}
-
+import "./clock.js"
 
 // MODULE__THEME 
 
