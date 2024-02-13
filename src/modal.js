@@ -1,4 +1,4 @@
-import { buttonAdd, modal, deleteAllButton } from "./components.js"
+import { buttonAdd, modal, deleteAllButton } from "./script/ui/components.js"
 
 import { getTasks } from "./localStorage.js"
 
