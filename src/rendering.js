@@ -1,6 +1,6 @@
 import { columnList} from "./components.js"
 import { getTasks} from "./localStorage.js"
-import { createTaskCard } from "./main.js"
+import { createTaskCard } from "./renderOperations.js"
 
 // Рендеринг карточек задач.
 export function renderTask() {
