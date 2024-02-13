@@ -1,3 +1,5 @@
+import { getTasks, setTasks } from "./localStorage.js"
+
 
 // MODULE__COMPONENTS 
 
@@ -107,21 +109,6 @@ function removeAllItems() {
   updateTaskCounter()
 }
 
-
-
-// MODULE__UTILS 
-
-
-// Получаем задачи из хранилища.
-function getTasks() {
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || []
-  return tasks
-}
-
-// Сохраняем задачи в хранилище.
-function setTasks(tasks) {
-  localStorage.setItem('tasks', JSON.stringify(tasks))
-}
 
 //  MODULE__RENDERING
 
